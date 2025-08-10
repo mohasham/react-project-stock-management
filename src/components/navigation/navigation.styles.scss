@@ -1,0 +1,49 @@
+.navigation {
+  background-color: #C6EBC5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 4rem; // 15px 40px
+  border-bottom: 0.2rem solid #345C45; // 2px
+
+  &__logo {
+    font-weight: bold;
+    font-size: 2.4rem; // 24px
+    color: #1F3521;
+  }
+
+  &__links {
+    list-style: none;
+    display: flex;
+    gap: 3rem; // 30px
+    margin: 0;
+    padding: 0;
+  }
+
+  &__link {
+    text-decoration: none;
+    color: #1F3521;
+    font-weight: 500;
+    font-size: 1.4rem; // 14px
+  }
+
+  &__icons {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem; // 15px
+  }
+
+  &__cart {
+    font-size: 1.8rem; // 18px
+  }
+
+  &__login-btn {
+    padding: 0.6rem 1.5rem; // 6px 15px
+    border: 0.1rem solid #1F3521; // 1px
+    background-color: transparent;
+    color: #1F3521;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 0.4rem; // 4px
+  }
+}

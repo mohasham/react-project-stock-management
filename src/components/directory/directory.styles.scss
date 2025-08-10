@@ -1,0 +1,9 @@
+
+  .directory-container {
+    //scss has a new future which is only if the class is a child to the class that the css
+    //of the class is written inside apply this css
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }

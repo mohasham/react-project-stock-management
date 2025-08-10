@@ -1,0 +1,32 @@
+/* Apply border-box globally */
+// I added this it does not I added by default when project is created
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+/* Set root font size to 62.5% so 1rem = 10px  since 16/10=62.5*/
+// I did this bcz we want to use rem 
+html {
+  font-size: 62.5%;
+}
+/* this is the body code before using custom font */
+/* body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+} */
+
+body {
+  margin: 0;
+  font-family: 'Nunito', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}

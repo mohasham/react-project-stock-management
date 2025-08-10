@@ -1,0 +1,11 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  &__main {
+    flex: 1; // pushes footer to bottom
+    padding: 2rem;
+    // background-color: #f9f9f9; // optional background
+  }
+}

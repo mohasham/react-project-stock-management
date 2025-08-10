@@ -1,0 +1,121 @@
+.footer {
+  background-color: #1b4332;
+  color: #fff;
+  padding: 4rem 2rem; // 40px 20px
+  font-size: 1.4rem; // 14px
+
+  &__content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 4rem; // 40px
+    max-width: 120rem; // 1200px
+    margin: 0 auto;
+  }
+
+  &__section {
+    flex: 1 1 20rem; // flex-grow, flex-shrink, flex-basis
+    min-width: 20rem;
+  }
+
+  &__brand {
+    font-size: 2.4rem; // 24px
+    font-weight: bold;
+    margin-bottom: 1rem; // 10px
+  }
+
+  &__social-title {
+    margin-bottom: 1rem;
+  }
+
+  &__icons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem; // 15px
+    font-size: 1.8rem; // 18px
+
+    i {
+      cursor: pointer;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: #b7e4c7;
+      }
+    }
+  }
+
+  &__title {
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  &__section {
+    ul {
+      list-style: none;
+      padding: 0;
+
+      li {
+        margin-bottom: 0.8rem;
+        cursor: pointer;
+      }
+    }
+  }
+
+  &__form {
+    display: flex;
+    margin-top: 1rem;
+  }
+
+  &__input {
+    padding: 0.8rem;
+    border: none;
+    border-radius: 0.4rem 0 0 0.4rem;
+    flex: 1;
+    font-size: 1.4rem;
+  }
+
+  &__button {
+    background-color: #95d5b2;
+    color: #1b4332;
+    border: none;
+    padding: 0.8rem 1.6rem;
+    font-weight: bold;
+    border-radius: 0 0.4rem 0.4rem 0;
+    cursor: pointer;
+    transition: background 0.3s ease;
+
+    &:hover {
+      background-color: #74c69d;
+    }
+  }
+
+  &__bottom-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 4rem;
+    padding-top: 2rem;
+    gap: 2rem;
+
+    & > .footer__line {
+      flex-grow: 1;
+      height: 0.1rem;
+      background-color: #ccc;
+    }
+  }
+
+  &__bottom {
+    display: flex;
+    gap: 2rem;
+    font-size: 1.2rem;
+
+    a {
+      color: #ccc;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
