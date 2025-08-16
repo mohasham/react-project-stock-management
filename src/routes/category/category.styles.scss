@@ -2,14 +2,14 @@
 .category-container{
   display: grid;
   grid-template-columns: repeat(4,1fr);
-  column-gap: 20px;
-  row-gap: 50px;
+  column-gap: 2rem;
+  row-gap: 5rem;
 
 }
 
 .category-title{
-  font-size: 38px;
-margin-bottom: 25px;
+  font-size: 3.8rem;
+margin-bottom: 2.5rem;
 text-align: center;
 }
 
