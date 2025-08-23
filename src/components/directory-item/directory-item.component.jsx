@@ -1,4 +1,4 @@
-
+import { useNavigate } from 'react-router-dom';
 import'./directory-item.styles.scss';
 //initialize our category item as a functional component
 // do not forget to export
@@ -7,9 +7,11 @@ import'./directory-item.styles.scss';
 //whe got a problem of getting styles of same className from 2 style pages
 const DirectoryItem=({category})=>{
     // we need imageUrl & title
-    const{id,imageUrl,title}=category;
+    const{id,imageUrl,title,route}=category;
+     const navigate=useNavigate();
+    const onNavigateHandler=()=>navigate(route);
     return(
-        <div key={id} className='directory-item-container'>
+        <div key={id} className='directory-item-container' onClick={onNavigateHandler}>
         {/* // Note we can make a custom style to any element in react by using style={{}} */}
         <div className='background-image'
         style={{

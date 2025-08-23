@@ -1,7 +1,14 @@
 import React from 'react';
+import CartIcon from '../cart-icon/cart-icon.component';
+import { useSelector } from 'react-redux';
+import { selectCurrentUser } from '../../store/user/user.selector';
+import { selectIsCartOpen } from '../../store/cart/cart.selector';
 import './navigation.styles.scss';
 
 const Navigation = () => {
+  const currentUser=useSelector(selectCurrentUser);
+ 
+  const isCartOpen=useSelector(selectIsCartOpen);
   return (
     <nav className='navigation'>
       <div className='navigation__logo'>Rivo</div>
@@ -12,7 +19,7 @@ const Navigation = () => {
         <li><a className='navigation__link' href='#'>Contact</a></li>
       </ul>
       <div className='navigation__icons'>
-        <span className='navigation__cart'><i class='bi bi-cart4'></i></span>
+        <CartIcon/>
         <button className='navigation__login-btn'>Login</button>
       </div>
     </nav>
