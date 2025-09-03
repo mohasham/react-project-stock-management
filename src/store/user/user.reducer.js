@@ -6,7 +6,9 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setCurrentUser(state, action) { state.currentUser = action.payload; },
+    setCurrentUser(state, action) {
+      state.currentUser = action.payload;
+    },
     checkUserSession() {},
     googleSignInStart() {},
     emailSignInStart() {},
@@ -48,4 +50,5 @@ export const {
   signOutFailed,
 } = userSlice.actions;
 
-export default userSlice.reducer;
+export const userReducer = userSlice.reducer;
+

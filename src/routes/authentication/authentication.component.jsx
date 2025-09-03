@@ -1,7 +1,7 @@
 import SignUpForm from '../../components/sign-up-form/sign-up-form.component';
 import SignInForm from '../../components/sign-in-form/sign-in-form.component';
 
-import './authentication.styles';
+import './authentication.styles.scss';
 // import { useEffect } from "react";//we need this with redirect 
 // import { getRedirectResult } from "firebase/auth"; //we need this with redirect also we need to import auth 
 // //because it is what this method will get
@@ -12,7 +12,7 @@ import './authentication.styles';
 
 
 /*This component was named sign in not authentication */
-const Authentication=()=>{
+export const Authentication=()=>{
     //we use useEffect bcz we want to run this when the app mount
     //useEffect(()=>{},[]);
     //when we pass an empty array it means run this function once 

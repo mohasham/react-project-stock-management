@@ -11,7 +11,8 @@ import { useDispatch,useSelector } from 'react-redux';
 import { selectCartItems } from '../../store/cart/cart.selector';
 //this was used before using slice
 //import { addItemToCart } from '../../store/cart/cart.action;
-import { addItemToCart } from '../../store/cart/cart.action';
+import { addItemToCart } from '../../store/cart/cart.reducer';
+import './product-card.styles.scss'
 
 
 
@@ -19,7 +20,7 @@ import { addItemToCart } from '../../store/cart/cart.action';
 //we need it to pass the buttonType
 import Button,{BUTTON_TYPE_CLASSES} from '../button/button.component';
 
-import { Footer, Name, Price, ProductCartContainer } from './product-card.styles';
+import './product-card.styles.scss';
 //remeber first letter of every word in the name should be capital 
 //to let react reads it 
 const ProductCard=({product})=>{
@@ -37,16 +38,16 @@ const ProductCard=({product})=>{
     //of reading it from the whole jsx
     //this was used before using slice
     //const addProductToCart=()=>dispatch(addItemToCart(cartItems,product));
-    // const addProductToCart=()=>dispatch(addItemToCart(product));
+    const addProductToCart=()=>dispatch(addItemToCart(product));
   return( 
      <div className='product-card-container'>
         <img src={imageUrl} alt={`${name}`}/>
-        <div className='footer'>
+        <div className='product-footer'>
             <span className='name'>{name}</span>
             <span className='price'>{price}</span>
         </div>
         {/* Note this button from black to white so unlike typical button so it's inverted buttonType */}
-        <Button buttonType={BUTTON_TYPE_CLASSES.inverted} onClick={()=>addItemToCart(product)}>Add to card</Button>
+        <Button buttonType={BUTTON_TYPE_CLASSES.inverted} onClick={()=>addProductToCart(product)}>Add to card</Button>
     </div>
 );
 };

@@ -22,7 +22,7 @@ import CategoriesPreview from '../categories-preview/categories-preview.componen
 import Category from '../category/category.component';
 
 //import { getCategoriesAndDocuments } from '../../utils/firebase/firebase.utils';
-import { fetchCategoriesStart } from '../../store/categories/category.action';
+import { fetchCategoriesStart } from '../../store/categories/category.reducer';
 //this import was used with saga
 //import { fetchCategoriesAsync, fetchCategoriesStart } from '../../store/categories/category.action';
 //this import was needed before using redu thunk

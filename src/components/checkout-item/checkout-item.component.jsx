@@ -5,8 +5,8 @@ import { useSelector,useDispatch } from 'react-redux';
 //this import was used before using slice
 // import { clearItemFromCart,addItemToCart,removeItemFromCart } from '../../store/cart/cart.action.js';
 import { clearItemFromCart,addItemToCart,removeItemFromCart } from '../../store/cart/cart.reducer';
-//import { CartContext } from '../../contexts/cart.context.jsx';
-const CheckoutItem=({cartItem})=>{
+import './checkout-item.styles.scss';
+export const CheckoutItem=({cartItem})=>{
     const {name,imageUrl,price,quantity}=cartItem;
     const dispatch=useDispatch();
     //const cartItems=useSelector(selectCartItems);
@@ -32,28 +32,28 @@ const CheckoutItem=({cartItem})=>{
     const removeItemHandler=()=>dispatch(removeItemFromCart(cartItem));
     return(
                <div className='checkout-item-container'>
-//             <div className='image-container'>
-//                 <img src={imageUrl} alt={`${name}`}/>
-//             </div>
-//             <span className='name'>{name}</span>
-//             <span className='quantity'>
-//                 <div className='arrow' onClick={removeItemHandler}>
-//                     {/* This is a left arrow using html symbol &#10094; */}
-//                     &#10094;
-//                 </div>
-//                 {/* we put the qty inside a span alone bcz we want to style it */}
-//                 <span className='value'>{quantity}</span>
-//                 <div className='arrow'onClick={addItemHandler}>
-//                     {/* This is a left arrow using html symbol &#10094; */}
-//                 &#10095;
-//                 </div>
-//             </span>
-//             <span className='price'>{price}</span>
-//             {/* This &#10005; is special character in html we want to display x button in a specific format */}
-//             <div className='remove-button'onClick={clearItemHandler}>
-//                 &#10005;
-//              </div>
-//         </div>
+             <div className='image-container'>
+                 <img src={imageUrl} alt={`${name}`}/>
+             </div>
+             <span className='name'>{name}</span>
+             <span className='quantity'>
+                 <div className='arrow' onClick={removeItemHandler}>
+                     {/* This is a left arrow using html symbol &#10094; */}
+                     &#10094;
+                 </div>
+                 {/* we put the qty inside a span alone bcz we want to style it */}
+                 <span className='value'>{quantity}</span>
+                 <div className='arrow'onClick={addItemHandler}>
+                     {/* This is a left arrow using html symbol &#10094; */}
+                 &#10095;
+                 </div>
+             </span>
+             <span className='price'>{price}</span>
+             {/* This &#10005; is special character in html we want to display x button in a specific format */}
+             <div className='remove-button'onClick={clearItemHandler}>
+                 &#10005;
+              </div>
+         </div>
     )
     
 }

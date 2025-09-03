@@ -1,4 +1,6 @@
 import React from 'react';
+import Button from '../button/button.component';
+import { BUTTON_TYPE_CLASSES } from '../button/button.component';
 import './hero-section.styles.scss';
 
 const HeroSection = () => {
@@ -10,7 +12,7 @@ const HeroSection = () => {
           Explore our curated collection of stylish clothing and accessories tailored to your
           unique taste.
         </p>
-        <button className="hero__btn">Explore Now</button>
+        <Button>Explore Now</Button>
       </div>
       <div className="hero__image">
         <img className="hero__image-img" src="" alt="Fashion Model" />

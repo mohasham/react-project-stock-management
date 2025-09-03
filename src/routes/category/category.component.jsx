@@ -1,3 +1,4 @@
+import react from 'react';
 import { useContext,useState,useEffect, Fragment } from 'react';
 //we use selector instead of categories.context
 //Note if we want to use data from redux inside a component we have to use selectors
@@ -9,12 +10,13 @@ import ProductCard from '../../components/product-card/product-card.component';
 import Spinner from '../../components/spinner/spinner.component';
 //we need to import this to use it in useSelector as a paramter
 import { selectCategoriesIsLoading, selectCategoriesMap } from '../../store/categories/category.selector';
+import './category.styles.scss';
 
 //he removed this import bcz we want to use redux
 //import { CategoriesContext } from '../../contexts/categories.context';
 
 
-const Category=()=>{
+ const Category=()=>{
     //this Category component is used to show the full list of categories for each title
     //params give us an object of parameters but bcz we know there is one catgory 
     //we are going to destructure

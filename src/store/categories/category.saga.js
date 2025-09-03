@@ -3,15 +3,23 @@ import {
   fetchCategoriesStart,
   fetchCategoriesSuccess,
   fetchCategoriesFailed,
-} from './categories.reducer'; // Import actions from slice
-import { getCategoriesAndDocuments } from '../../utils/firebase/firebase.utils';
+} from './category.reducer';
+
+// Instead of Firebase, fetch from your Express backend
+async function fetchCategoriesFromApi() {
+  const res = await fetch('http://localhost:5000/api/shop/categories');
+  if (!res.ok) {
+    throw new Error(`HTTP error! status: ${res.status}`);
+  }
+  return await res.json();
+}
 
 function* fetchCategoriesAsync() {
   try {
-    const categoriesArray = yield call(getCategoriesAndDocuments, 'categories');
+    const categoriesArray = yield call(fetchCategoriesFromApi);
     yield put(fetchCategoriesSuccess(categoriesArray));
   } catch (error) {
-    yield put(fetchCategoriesFailed(error));
+    yield put(fetchCategoriesFailed(error.message));
   }
 }
 
