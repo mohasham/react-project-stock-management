@@ -1,4 +1,5 @@
 import React from 'react';
+import FormInput from '../form-input/form-input.component';
 import './footer.styles.scss';
 
 const Footer = () => {
@@ -48,6 +49,13 @@ const Footer = () => {
               placeholder="Enter your email"
               className="footer__input"
             />
+             {/* <FormInput
+              label="Email"
+              type="email"
+              value=""
+              onChange={() => {}} // no-op function, just prevents React warning
+              required
+            /> */}
             <button type="submit" className="footer__button">
               SUBMIT
             </button>

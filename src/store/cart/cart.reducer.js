@@ -2,11 +2,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const addCartItem = (cartItems, productToAdd) => {
-  const existingCartItem = cartItems.find(item => item.id === productToAdd.id);
+  const existingCartItem = cartItems.find(
+    item =>
+      item.id === productToAdd.id &&
+      item.selectedSize === productToAdd.selectedSize &&
+      item.selectedColor === productToAdd.selectedColor
+  );
 
   if (existingCartItem) {
     return cartItems.map(item =>
-      item.id === productToAdd.id
+      item.id === productToAdd.id &&
+      item.selectedSize === productToAdd.selectedSize &&
+      item.selectedColor === productToAdd.selectedColor
         ? { ...item, quantity: item.quantity + 1 }
         : item
     );
@@ -16,21 +23,42 @@ const addCartItem = (cartItems, productToAdd) => {
 };
 
 const removeCartItem = (cartItems, cartItemToRemove) => {
-  const existingCartItem = cartItems.find(item => item.id === cartItemToRemove.id);
+  const existingCartItem = cartItems.find(
+    item =>
+      item.id === cartItemToRemove.id &&
+      item.selectedSize === cartItemToRemove.selectedSize &&
+      item.selectedColor === cartItemToRemove.selectedColor
+  );
 
   if (existingCartItem.quantity === 1) {
-    return cartItems.filter(item => item.id !== cartItemToRemove.id);
+    return cartItems.filter(
+      item =>
+        !(
+          item.id === cartItemToRemove.id &&
+          item.selectedSize === cartItemToRemove.selectedSize &&
+          item.selectedColor === cartItemToRemove.selectedColor
+        )
+    );
   }
 
   return cartItems.map(item =>
-    item.id === cartItemToRemove.id
+    item.id === cartItemToRemove.id &&
+    item.selectedSize === cartItemToRemove.selectedSize &&
+    item.selectedColor === cartItemToRemove.selectedColor
       ? { ...item, quantity: item.quantity - 1 }
       : item
   );
 };
 
 const clearCartItem = (cartItems, cartItemToClear) =>
-  cartItems.filter(item => item.id !== cartItemToClear.id);
+  cartItems.filter(
+    item =>
+      !(
+        item.id === cartItemToClear.id &&
+        item.selectedSize === cartItemToClear.selectedSize &&
+        item.selectedColor === cartItemToClear.selectedColor
+      )
+  );
 
 const CART_INITIAL_STATE = {
   isCartOpen: false,

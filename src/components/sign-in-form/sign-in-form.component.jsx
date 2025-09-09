@@ -27,7 +27,7 @@ const defaultformFields={
 
 
 
-export const SignInForm=()=>{
+ const SignInForm=()=>{
   const dispatch = useDispatch();
   const [formFields, setFormFields] = useState(defaultformFields);
   const { email, password } = formFields;
