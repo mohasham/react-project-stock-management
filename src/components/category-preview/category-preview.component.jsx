@@ -26,7 +26,7 @@ export const CategoryPreview=({title,products})=>{
                     products.filter((_,idx)=>idx<4)
                     //passing each product to ProductCard Component
                     .map((product)=>
-                    <ProductCard key={product.id} product={product}/>)
+                    <ProductCard key={product.id || product._id} product={product}/>)
                 }
             </div>
         </div>

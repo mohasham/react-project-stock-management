@@ -12,7 +12,7 @@ import './authentication.styles.scss';
 
 
 /*This component was named sign in not authentication */
-export const Authentication=()=>{
+ const Authentication=()=>{
     //we use useEffect bcz we want to run this when the app mount
     //useEffect(()=>{},[]);
     //when we pass an empty array it means run this function once 
