@@ -1,10 +1,10 @@
-import { useState,useContext,FormEvent,ChangeEvent} from 'react';
+import { useState,useContext} from 'react';
 
 import { useDispatch } from 'react-redux';
 
 import FormInput from '../form-input/form-input.component';
 
-import { googleSignInStart,emailSignInStart } from '../../store/user/user.action';
+import { googleSignInStart,emailSignInStart } from '../../store/user/user.reducer';
 // we do not need this import bcz we used onAuthStateChanged it will automatically use usercontext
 
 // import { UserContext } from "../../context/user.context";
@@ -36,15 +36,19 @@ const defaultformFields={
     setFormFields(defaultformFields);
   };
 
-  const signInWithGoogle = async () => {
-    dispatch(googleSignInStart());
-  };
+  // const signInWithGoogle = async () => {
+  //   dispatch(googleSignInStart());
+  // };
+  
+const signInWithGoogle = () => {
+  window.location.href = 'http://localhost:5000/api/customers/auth/google';
+};
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      dispatch(emailSignInStart(email, password));
+      dispatch(emailSignInStart({ email, password }));;
       resetFormFields();
     } catch (error) {
       console.log('user sign in failed', error);
@@ -57,7 +61,7 @@ const defaultformFields={
     setFormFields({ ...formFields, [name]: value });
   };
     return(//bcz there is form input which is used in sign up we think Generalizing the input as a component
-        <SignInContainer>
+        <div className='sign-up-container'>
             <h2>Already have an account?</h2>
             <span>Sign in with your email and password</span>
             <form onSubmit={handleSubmit}>
@@ -78,7 +82,7 @@ const defaultformFields={
                     name='password'
                     value={password}
                 />
-                <ButtonsContainer>
+                <div className='buttons-container'>
                     <Button type='submit'>Sign In</Button>
                     {/* Note the button is by default of type submit in the form so if we hit signin
                     with google the alert no user asociated with this email to solve this
@@ -90,10 +94,10 @@ const defaultformFields={
                      >
                         Google sign in
                     </Button>
-                </ButtonsContainer>
+                </div>
                 
             </form>
-        </SignInContainer>
+        </div>
     );
 };
 

@@ -1,127 +1,159 @@
-// import { takeLatest, put, all, call } from 'redux-saga/effects';
+import { takeLatest, put, all, call } from 'redux-saga/effects';
 
-// import { USER_ACTION_TYPES } from './user.types';
+import {
+  signInSuccess,
+  signInFailed,
+  signUpFailed,
+  signOutSuccess,
+  signOutFailed,
+} from './user.reducer';
 
-// import {
-//   signInSuccess,
-//   signInFailed,
-//   signUpSuccess,
-//   signUpFailed,
-//   signOutSuccess,
-//   signOutFailed,
-// } from './user.action';
+// ===============================
+// API Helpers
+// ===============================
 
-// // import {
-// //   getCurrentUser,
-// //   createUserDocumentFromAuth,
-// //   signInWithGooglePopup,
-// //   signInAuthUserWithEmailAndPassword,
-// //   createAuthUserWithEmailAndPassword,
-// //   signOutUser,
-// // } from '../../utils/firebase/firebase.utils';
+const API_URL = 'http://localhost:5000/api/customers';
 
-// export function* getSnapshotFromUserAuth(userAuth, additionalDetails) {
-//   try {
-//     const userSnapshot = yield call(
-//       createUserDocumentFromAuth,
-//       userAuth,
-//       additionalDetails
-//     );
-//     yield put(signInSuccess({ id: userSnapshot.id, ...userSnapshot.data() }));
-//   } catch (error) {
-//     yield put(signInFailed(error));
-//   }
-// }
+const checkSessionApi = async () => {
+  const token = localStorage.getItem('customerToken');
+  if (!token) throw new Error('No token found');
 
-// export function* signInWithGoogle() {
-//   try {
-//     const { user } = yield call(signInWithGooglePopup);
-//     yield call(getSnapshotFromUserAuth, user);
-//   } catch (error) {
-//     yield put(signInFailed(error));
-//   }
-// }
+  const response = await fetch(`${API_URL}/me`, {
+    headers: { Authorization: `Bearer ${token}` }
+  });
 
-// export function* signInWithEmail({ payload: { email, password } }) {
-//   try {
-//     const { user } = yield call(
-//       signInAuthUserWithEmailAndPassword,
-//       email,
-//       password
-//     );
-//     yield call(getSnapshotFromUserAuth, user);
-//   } catch (error) {
-//     yield put(signInFailed(error));
-//   }
-// }
+  const data = await response.json();
+  if (!response.ok) throw new Error('Session invalid');
+  return data;
+};
 
-// export function* isUserAuthenticated() {
-//   try {
-//     const userAuth = yield call(getCurrentUser);
-//     if (!userAuth) return;
-//     yield call(getSnapshotFromUserAuth, userAuth);
-//   } catch (error) {
-//     yield put(signInFailed(error));
-//   }
-// }
+// Sign Up
+const signUpApi = async (displayName, email, password) => {
+  const response = await fetch(`${API_URL}/signup`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      displayName,
+      email,
+      password,
+    }),
+  });
 
-// export function* signUp({ payload: { email, password, displayName } }) {
-//   try {
-//     const { user } = yield call(
-//       createAuthUserWithEmailAndPassword,
-//       email,
-//       password
-//     );
-//     yield put(signUpSuccess(user, { displayName }));
-//   } catch (error) {
-//     yield put(signUpFailed(error));
-//   }
-// }
+  const data = await response.json();
+  
 
-// export function* signOut() {
-//   try {
-//     yield call(signOutUser);
-//     yield put(signOutSuccess());
-//   } catch (error) {
-//     yield put(signOutFailed(error));
-//   }
-// }
+  if (!response.ok) {
+    throw new Error(data.message || 'Sign up failed');
+  }
 
-// export function* signInAfterSignUp({ payload: { user, additionalDetails } }) {
-//   yield call(getSnapshotFromUserAuth, user, additionalDetails);
-// }
+  return data;
+};
 
-// export function* onGoogleSignInStart() {
-//   yield takeLatest(USER_ACTION_TYPES.GOOGLE_SIGN_IN_START, signInWithGoogle);
-// }
+// Sign In
+const signInApi = async (email, password) => {
+  const response = await fetch(`${API_URL}/signin`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      email,
+      password,
+    }),
+  });
 
-// export function* onCheckUserSession() {
-//   yield takeLatest(USER_ACTION_TYPES.CHECK_USER_SESSION, isUserAuthenticated);
-// }
+  const data = await response.json();
 
-// export function* onEmailSignInStart() {
-//   yield takeLatest(USER_ACTION_TYPES.EMAIL_SIGN_IN_START, signInWithEmail);
-// }
+  if (!response.ok) {
+    throw new Error(data.message || 'Sign in failed');
+  }
 
-// export function* onSignUpStart() {
-//   yield takeLatest(USER_ACTION_TYPES.SIGN_UP_START, signUp);
-// }
+  return data;
+};
 
-// export function* onSignUpSuccess() {
-//   yield takeLatest(USER_ACTION_TYPES.SIGN_UP_SUCCESS, signInAfterSignUp);
-// }
+// ===============================
+// Sagas
+// ===============================
 
-// export function* onSignOutStart() {
-//   yield takeLatest(USER_ACTION_TYPES.SIGN_OUT_START, signOut);
-// }
+function* checkUserSessionSaga() {
+  try {
+    const data = yield call(checkSessionApi);
+    yield put(signInSuccess(data.customer));
+  } catch (error) {
+    localStorage.removeItem('customerToken');
+    yield put(signInFailed(error.message));
+  }
+}
 
-// export function* userSagas() {
-//   yield all([
-//     call(onCheckUserSession),
-//     call(onGoogleSignInStart),
-//     call(onEmailSignInStart),
-//     call(onSignUpStart),
-//     call(onSignUpSuccess),
-//     call(onSignOutStart),
-//   ]);
-// }
+function* signUp({ payload: { displayName, email, password } }) {
+  try {
+    const data = yield call(signUpApi, displayName, email, password);
+
+    // Save token
+    localStorage.setItem('customerToken', data.token); // ✅ specific key
+    // Save customer as current user
+    yield put(signInSuccess(data.customer));
+    alert('Account created successfully! 🎉'); // ✅ here, after confirmed success
+  } catch (error) {
+    yield put(signUpFailed(error.message));
+  }
+}
+
+function* signInWithEmail({ payload: { email, password } }) {
+  try {
+    const data = yield call(signInApi, email, password);
+
+    // Save token
+     localStorage.setItem('customerToken', data.token); // ✅ specific key
+
+    // Save customer as current user
+    yield put(signInSuccess(data.customer));
+     console.log('Sign in successful ✅', data.customer);
+  } catch (error) {
+    yield put(signInFailed(error.message));
+  }
+}
+
+function* signOut() {
+  try {
+    localStorage.removeItem('customerToken'); // ✅ specific key
+    yield put(signOutSuccess());
+  } catch (error) {
+    yield put(signOutFailed(error.message));
+  }
+}
+
+// ===============================
+// Watchers
+// ===============================
+
+function* onCheckUserSession() {
+  yield takeLatest('user/checkUserSession', checkUserSessionSaga);
+}
+
+function* onEmailSignInStart() {
+  yield takeLatest('user/emailSignInStart', signInWithEmail);
+}
+
+function* onSignUpStart() {
+  yield takeLatest('user/signUpStart', signUp);
+}
+
+function* onSignOutStart() {
+  yield takeLatest('user/signOutStart', signOut);
+}
+
+// ===============================
+// Root Saga
+// ===============================
+
+export function* userSagas() {
+  yield all([
+    call(onCheckUserSession),
+    call(onEmailSignInStart),
+    call(onSignUpStart),
+    call(onSignOutStart),
+  ]);
+}

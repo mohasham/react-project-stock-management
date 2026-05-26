@@ -1,5 +1,6 @@
 // src/store/cart/cart.reducer.js
 import { createSlice } from '@reduxjs/toolkit';
+import { signOutSuccess } from '../user/user.reducer'; // ✅ import signOutSuccess
 
 const addCartItem = (cartItems, productToAdd) => {
   const existingCartItem = cartItems.find(
@@ -81,6 +82,17 @@ const cartSlice = createSlice({
     clearItemFromCart(state, action) {
       state.cartItems = clearCartItem(state.cartItems, action.payload);
     }
+  },
+  // ✅ extraReducers listens to actions from OTHER slices
+  // we use it here bcz signOutSuccess belongs to user slice not cart slice
+  // when user signs out we want cart to reset automatically
+  // without needing to dispatch a separate clearCart action from the saga
+  extraReducers: (builder) => {
+    builder.addMatcher(signOutSuccess.match, (state) => {
+      // reset cart state when user signs out
+      state.cartItems = [];
+      state.isCartOpen = false;
+    });
   }
 });
 

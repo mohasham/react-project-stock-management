@@ -14,7 +14,7 @@ import Button from '../button/button.component';
 // import { UserContext } from "../../context/user.context";
 import './sign-up-form.styles.scss';
 //we need this action to dispatch
-import { signUpStart } from '../../store/user/user.action';
+import { signUpStart } from '../../store/user/user.reducer';
 //initilize the state of the form and this used to take the values of the form
 const defaultFormFields = {
   displayName: "",
@@ -41,7 +41,8 @@ const SignUpForm = () => {
     }
 
     try {
-      dispatch(signUpStart(email, password, displayName));
+      // dispatch(signUpStart(email, password, displayName));
+      dispatch(signUpStart({ displayName, email, password }));
       resetFormFields();
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
@@ -63,7 +64,7 @@ const SignUpForm = () => {
 <span>Sign up with your email and password</span>
 <form onSubmit={handleSubmit}>
     <FormInput
-        label='Diplay Name'
+        label='Display Name'
         type='text' 
         required 
         onChange={handleChange} 

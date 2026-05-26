@@ -1,23 +1,22 @@
-import react from 'react';
+// button.component.jsx
+import React from 'react';
 import './button.styles.scss';
-export const BUTTON_TYPE_CLASSES={
-     base:'base',
-    google:'google-sign-in',
-    inverted:'inverted'
 
-}
-//we are passing button type as sec pa  it is just a parameter it is not necessary to be same 
-//name as var BUTTON_TYPE_CLASSES here
-//this otherProps are other details like we use in input for type and value 
+export const BUTTON_TYPE_CLASSES = {
+  base: '',
+  google: 'google-sign-in',
+  inverted: 'inverted',
+};
 
-export const Button=({children,buttonType,...otherProps})=>{//Note every word in the component name should start with capital
-    return(//make sure to have a space before  ${BUTTON_TYPE_CLASSES[buttonType] writing in cocatenation below
-        <button className= {`button-container ${BUTTON_TYPE_CLASSES[buttonType]}`}
-        {...otherProps}//here otherProps something like onClick or disabled ... and Children is the text inside button
-        >
-            {children}
-        </button>
-    )
+const Button = ({ children, buttonType = BUTTON_TYPE_CLASSES.base, ...otherProps }) => {
+  return (
+    <button
+      className={`button-container ${buttonType}`}
+      {...otherProps}
+    >
+      {children}
+    </button>
+  );
 };
 
 export default Button;

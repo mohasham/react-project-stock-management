@@ -37,13 +37,42 @@
     font-size: 1.8rem; // 18px
   }
 
-  &__login-btn {
-    padding: 0.6rem 1.5rem; // 6px 15px
-    border: 0.1rem solid #1F3521; // 1px
-    background-color: transparent;
-    color: #1F3521;
-    font-weight: 600;
-    cursor: pointer;
-    border-radius: 0.4rem; // 4px
+  &__login-dropdown {
+    position: relative;
+    display: inline-block;
   }
+
+  /* Dropdown menu */
+  &__dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 0.5rem;
+
+  display: flex;
+  flex-direction: column; /* ✅ stack items vertically */
+
+  min-width: 18rem;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 0.8rem;
+  box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  z-index: 1000;
+}
+
+/* Each dropdown item */
+&__dropdown-item {
+  display: block; /* ✅ take full width */
+  padding: 1.2rem 1.6rem;
+  text-decoration: none;
+  color: #333;
+  transition: background-color 0.2s ease;
+}
+
+&__dropdown-item:hover {
+  background-color: #f5f5f5;
+}
+
+
 }
