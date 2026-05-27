@@ -6,6 +6,7 @@ export const BUTTON_TYPE_CLASSES = {
   base: '',
   google: 'google-sign-in',
   inverted: 'inverted',
+  signOut: 'sign-out', // ✅ add this
 };
 
 const Button = ({ children, buttonType = BUTTON_TYPE_CLASSES.base, ...otherProps }) => {

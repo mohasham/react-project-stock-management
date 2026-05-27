@@ -1,15 +1,43 @@
-.sign-up-container{
+.sign-in-form {
+  display: flex;
+  flex-direction: column;
+  width: 380px;
+
+  &__title {
+    margin: 10px 0;
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  &__subtitle {
+    margin-bottom: 16px;
+    font-size: 14px;
+    color: #666;
+  }
+
+  &__field {
     display: flex;
     flex-direction: column;
-    width: 380px;
+    margin-bottom: 8px;
+  }
 
-    h2{
-        //this means that margin top and buttom to 10 px and left, right 0
-        margin: 10px 0;
-    }
+  &__error {
+    color: #cc0000;
+    font-size: 12px;
+    margin-top: 4px;
+    margin-bottom: 8px;
+  }
 
-    .buttons-container{
-        display: flex;
-        justify-content: space-between;
-    }
+  &__server-error {
+    color: #cc0000;
+    font-size: 14px;
+    margin-bottom: 12px;
+    text-align: center;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+  }
 }

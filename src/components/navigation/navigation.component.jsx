@@ -6,6 +6,7 @@ import { signOutStart } from '../../store/user/user.reducer';
 import { selectCurrentUser } from '../../store/user/user.selector';
 import { selectIsCartOpen } from '../../store/cart/cart.selector';
 import { Link } from 'react-router-dom';
+import Button,  { BUTTON_TYPE_CLASSES } from '../button/button.component';
 import './navigation.styles.scss';
 import { useState } from 'react';
 
@@ -35,22 +36,24 @@ const Navigation = () => {
         <CartIcon />
         {isCartOpen && <CartDropdown />}
 
-        {/* Show Sign Out if logged in, otherwise show Login dropdown */}
         {currentUser ? (
-          <button
-            className='navigation__login-btn'
+          // ✅ show sign out button when logged in
+          <Button
+            type='button'
+            buttonType={BUTTON_TYPE_CLASSES.signOut} // ✅ red button
             onClick={handleSignOut}
           >
             Sign Out
-          </button>
+          </Button>
         ) : (
+          // ✅ show login dropdown when not logged in
           <div className='navigation__login-dropdown'>
-            <button
-              className='navigation__login-btn'
+            <Button
+              type='button'
               onClick={toggleLoginMenu}
             >
               Login ▼
-            </button>
+            </Button>
 
             {isLoginMenuOpen && (
               <div className='navigation__dropdown-menu'>
@@ -77,4 +80,5 @@ const Navigation = () => {
     </nav>
   );
 };
+
 export default Navigation;
