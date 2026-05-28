@@ -3,15 +3,19 @@ import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 import { useSelector, useDispatch } from 'react-redux';
 import { signOutStart } from '../../store/user/user.reducer';
+import { adminSignOutStart } from '../../store/admin/admin.reducer';
 import { selectCurrentUser } from '../../store/user/user.selector';
+import { selectCurrentAdmin } from '../../store/admin/admin.selector';
 import { selectIsCartOpen } from '../../store/cart/cart.selector';
 import { Link } from 'react-router-dom';
-import Button,  { BUTTON_TYPE_CLASSES } from '../button/button.component';
+import Button, { BUTTON_TYPE_CLASSES } from '../button/button.component';
+import SignOutIcon from '../icons/sign-out-icon.component';
 import './navigation.styles.scss';
 import { useState } from 'react';
 
 const Navigation = () => {
   const currentUser = useSelector(selectCurrentUser);
+  const currentAdmin = useSelector(selectCurrentAdmin);
   const isCartOpen = useSelector(selectIsCartOpen);
   const dispatch = useDispatch();
   const [isLoginMenuOpen, setIsLoginMenuOpen] = useState(false);
@@ -19,8 +23,12 @@ const Navigation = () => {
   const toggleLoginMenu = () => setIsLoginMenuOpen(!isLoginMenuOpen);
   const closeLoginMenu = () => setIsLoginMenuOpen(false);
 
-  const handleSignOut = () => {
+  const handleCustomerSignOut = () => {
     dispatch(signOutStart());
+  };
+
+  const handleAdminSignOut = () => {
+    dispatch(adminSignOutStart());
   };
 
   return (
@@ -36,17 +44,26 @@ const Navigation = () => {
         <CartIcon />
         {isCartOpen && <CartDropdown />}
 
-        {currentUser ? (
-          // ✅ show sign out button when logged in
+        {/* ✅ show admin sign out if admin is logged in */}
+        {currentAdmin ? (
           <Button
             type='button'
-            buttonType={BUTTON_TYPE_CLASSES.signOut} // ✅ red button
-            onClick={handleSignOut}
+            buttonType={BUTTON_TYPE_CLASSES.signOut}
+            onClick={handleAdminSignOut}
           >
-            Sign Out
+            <SignOutIcon /> Admin Sign Out
+          </Button>
+        ) : currentUser ? (
+          // ✅ show customer sign out if customer is logged in
+          <Button
+            type='button'
+            buttonType={BUTTON_TYPE_CLASSES.signOut}
+            onClick={handleCustomerSignOut}
+          >
+            <SignOutIcon /> Sign Out
           </Button>
         ) : (
-          // ✅ show login dropdown when not logged in
+          // ✅ show login dropdown if nobody is logged in
           <div className='navigation__login-dropdown'>
             <Button
               type='button'

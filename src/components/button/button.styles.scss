@@ -1,11 +1,11 @@
 .button-container {
-  min-width: 165px;
+  min-width: 16.5rem; 
   width: auto;
-  height: 50px;
+  height: 5rem; // 50px
   letter-spacing: 0.5px;
-  line-height: 50px;
-  padding: 0 35px 0 35px;
-  font-size: 15px;
+  line-height: 5rem; // 50px
+  padding: 0 3.5rem; // 35px
+  font-size: 1.5rem; // 15px
   background-color: black;
   color: white;
   text-transform: uppercase;
@@ -15,7 +15,15 @@
   cursor: pointer;
   display: flex;
   justify-content: center;
+  align-items: center; //✅ vertically center icon and text
+  gap: 0.8rem; // ✅ space between icon and text
   white-space: nowrap;
+
+  svg {
+    width: 1.8rem; // 18px
+    height: 1.8rem;
+    flex-shrink: 0;
+  }
 
   &:hover {
     background-color: white;
@@ -45,7 +53,6 @@
     }
   }
 
-  // ✅ add sign-out style
   &.sign-out {
     background-color: #dc3545;
     color: white;
