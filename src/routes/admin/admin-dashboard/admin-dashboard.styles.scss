@@ -1,0 +1,124 @@
+.admin-dashboard {
+  &__title {
+    font-size: 2.8rem;
+    font-weight: bold;
+    margin-bottom: 0.8rem;
+    color: #1a1a2e;
+  }
+
+  &__subtitle {
+    font-size: 1.4rem;
+    color: #666;
+    margin-bottom: 3rem;
+  }
+
+  &__loading {
+    font-size: 1.6rem;
+    color: #666;
+    text-align: center;
+    padding: 4rem;
+  }
+
+  &__error {
+    font-size: 1.6rem;
+    color: #cc0000;
+    text-align: center;
+    padding: 4rem;
+  }
+
+  &__cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
+
+  &__card {
+    background-color: white;
+    border-radius: 0.8rem;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.6rem;
+    box-shadow: 0 0.2rem 0.8rem rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: translateY(-0.4rem);
+    }
+
+    &--green {
+      background-color: #e8f5e9;
+      border-left: 4px solid #4caf50;
+    }
+
+    &--blue {
+      background-color: #e3f2fd;
+      border-left: 4px solid #2196f3;
+    }
+  }
+
+  &__card-icon {
+    font-size: 3.2rem;
+  }
+
+  &__card-info {
+    h3 {
+      font-size: 1.2rem;
+      color: #666;
+      margin: 0 0 0.4rem 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    p {
+      font-size: 2.4rem;
+      font-weight: bold;
+      color: #1a1a2e;
+      margin: 0;
+    }
+  }
+
+  &__section {
+    background-color: white;
+    border-radius: 0.8rem;
+    padding: 2rem;
+    box-shadow: 0 0.2rem 0.8rem rgba(0, 0, 0, 0.08);
+  }
+
+  &__section-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #1a1a2e;
+    margin-bottom: 1.6rem;
+  }
+
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th {
+      text-align: left;
+      padding: 1.2rem;
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      color: #666;
+      border-bottom: 2px solid #f0f0f0;
+    }
+
+    td {
+      padding: 1.2rem;
+      font-size: 1.4rem;
+      color: #333;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background-color: #f9f9f9;
+    }
+  }
+}

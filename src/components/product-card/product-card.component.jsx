@@ -1,19 +1,23 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addItemToCart } from "../../store/cart/cart.reducer";
-
 import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component";
 import "./product-card.styles.scss";
 
 const ProductCard = ({ product }) => {
-  const { name, price, imageUrl, colors = [], sizes = [] } = product;
+  const { name, price, imageUrl, colors = [], sizes = [], colorStock = [] } = product;
 
   const [selectedColor, setSelectedColor] = useState(colors[0] || "");
   const [selectedSize, setSelectedSize] = useState(sizes[0] || "");
 
   const dispatch = useDispatch();
 
+  // ✅ get stock for selected color
+  const selectedColorStock = colorStock.find(cs => cs.color === selectedColor);
+  const isOutOfStock = selectedColorStock ? selectedColorStock.quantity === 0 : false;
+
   const addProductToCart = () => {
+    if (isOutOfStock) return;
     dispatch(
       addItemToCart({
         ...product,
@@ -37,16 +41,23 @@ const ProductCard = ({ product }) => {
         <div className="product-card__options">
           <span className="product-card__label">Colors:</span>
           <div className="product-card__colors">
-            {colors.map((color, idx) => (
-              <button
-                key={idx}
-                className={`product-card__color ${
-                  selectedColor === color ? "product-card__color--active" : ""
-                }`}
-                style={{ backgroundColor: color.toLowerCase() }}
-                onClick={() => setSelectedColor(color)}
-              />
-            ))}
+            {colors.map((color, idx) => {
+              // ✅ check stock for each color
+              const colorStockItem = colorStock.find(cs => cs.color === color);
+              const colorOutOfStock = colorStockItem ? colorStockItem.quantity === 0 : false;
+
+              return (
+                <button
+                  key={idx}
+                  className={`product-card__color ${
+                    selectedColor === color ? "product-card__color--active" : ""
+                  } ${colorOutOfStock ? "product-card__color--out-of-stock" : ""}`}
+                  style={{ backgroundColor: color.toLowerCase() }}
+                  onClick={() => setSelectedColor(color)}
+                  title={colorOutOfStock ? `${color} - Out of Stock` : color}
+                />
+              );
+            })}
           </div>
         </div>
       )}
@@ -71,11 +82,13 @@ const ProductCard = ({ product }) => {
         </div>
       )}
 
+      {/* ✅ disable button if out of stock */}
       <Button
         buttonType={BUTTON_TYPE_CLASSES.inverted}
         onClick={addProductToCart}
+        disabled={isOutOfStock}
       >
-        Add to Cart
+        {isOutOfStock ? 'Out of Stock' : 'Add to Cart'}
       </Button>
     </div>
   );
