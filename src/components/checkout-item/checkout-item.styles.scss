@@ -1,4 +1,4 @@
-.checkout-item-container {
+.checkout-item {
   width: 100%;
   display: flex;
   align-items: center;
@@ -7,7 +7,7 @@
   padding: 1.5rem 0;
   font-size: 1.8rem;
 
-  .image-container {
+  &__image-container {
     width: 23%;
     padding-right: 1.5rem;
 
@@ -18,64 +18,64 @@
     }
   }
 
-  .details {
+  &__details {
     width: 23%;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-left: 2rem;
-
-    .name {
-      font-weight: bold;
-    }
-
-    .options {
-      display: flex;
-      flex-direction: column;
-      gap: 0.3rem;
-      margin-top: 0.4rem;
-
-      .color {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-
-        .color-swatch {
-          width: 18px;
-          height: 18px;
-          border-radius: 50%;
-          border: 1px solid #333;
-        }
-      }
-
-      .size {
-        font-size: 1.4rem;
-        color: grey;
-      }
-    }
   }
 
-  .quantity {
+  &__name {
+    font-weight: bold;
+  }
+
+  &__options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    margin-top: 0.4rem;
+  }
+
+  &__color {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  &__color-swatch {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 1px solid #333;
+  }
+
+  &__size {
+    font-size: 1.4rem;
+    color: grey;
+  }
+
+  &__quantity {
     width: 23%;
     display: flex;
     align-items: center;
     justify-content: center;
-
-    .arrow {
-      cursor: pointer;
-    }
-
-    .value {
-      margin: 0 1rem;
-    }
   }
 
-  .price {
+  &__arrow {
+    cursor: pointer;
+  }
+
+  &__value {
+    margin: 0 1rem;
+  }
+
+  &__price {
     width: 23%;
     text-align: center;
   }
 
-  .remove-button {
+  &__remove-button {
     width: 8%;
     text-align: center;
     cursor: pointer;

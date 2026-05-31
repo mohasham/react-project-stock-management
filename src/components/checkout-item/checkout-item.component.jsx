@@ -15,36 +15,50 @@ export const CheckoutItem = ({ cartItem }) => {
   const removeItemHandler = () => dispatch(removeItemFromCart(cartItem));
 
   return (
-    <div className='checkout-item-container'>
-      <div className='image-container'>
-        <img src={imageUrl} alt={`${name}`} />
+    <div className='checkout-item'>
+      <div className='checkout-item__image-container'>
+        <img src={imageUrl} alt={name} />
       </div>
 
-      <div className='details'>
-        <span className='name'>{name}</span>
+      <div className='checkout-item__details'>
+        <span className='checkout-item__name'>{name}</span>
 
-        <div className='options'>
+        <div className='checkout-item__options'>
           {selectedColor && (
-            <span className='color'>
-              Color:{" "}
+            <span className='checkout-item__color'>
+              Color:{' '}
               <span
-                className='color-swatch'
+                className='checkout-item__color-swatch'
                 style={{ backgroundColor: selectedColor }}
               />
             </span>
           )}
-          {selectedSize && <span className='size'>Size: {selectedSize}</span>}
+
+          {selectedSize && (
+            <span className='checkout-item__size'>
+              Size: {selectedSize}
+            </span>
+          )}
         </div>
       </div>
 
-      <span className='quantity'>
-        <div className='arrow' onClick={removeItemHandler}>&#10094;</div>
-        <span className='value'>{quantity}</span>
-        <div className='arrow' onClick={addItemHandler}>&#10095;</div>
+      <span className='checkout-item__quantity'>
+        <div className='checkout-item__arrow' onClick={removeItemHandler}>
+          &#10094;
+        </div>
+
+        <span className='checkout-item__value'>{quantity}</span>
+
+        <div className='checkout-item__arrow' onClick={addItemHandler}>
+          &#10095;
+        </div>
       </span>
 
-      <span className='price'>${price}</span>
-      <div className='remove-button' onClick={clearItemHandler}>&#10005;</div>
+      <span className='checkout-item__price'>${price}</span>
+
+      <div className='checkout-item__remove-button' onClick={clearItemHandler}>
+        &#10005;
+      </div>
     </div>
   );
 };

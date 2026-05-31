@@ -5,18 +5,31 @@ const CartItem = ({ cartItem }) => {
   const { name, imageUrl, price, quantity, selectedColor, selectedSize } = cartItem;
 
   return (
-    <div className="cart-item-container">
-      <img src={imageUrl} alt={name} />
-      <div className="item-details">
-        <span className="name">{name}</span>
-        <span>
+    <div className="cart-item">
+      <img className="cart-item__image" src={imageUrl} alt={name} />
+
+      <div className="cart-item__details">
+        <span className="cart-item__name">{name}</span>
+
+        <span className="cart-item__price">
           {quantity} x ${price}
         </span>
+
         {selectedColor && (
-  <span className="option">
-    Color: <span className="color-indicator" style={{ backgroundColor: selectedColor.toLowerCase() }}></span>
-  </span>)}
-        {selectedSize && <span className="option">Size: {selectedSize}</span>}
+          <span className="cart-item__option">
+            Color:
+            <span
+              className="cart-item__color-indicator"
+              style={{ backgroundColor: selectedColor.toLowerCase() }}
+            />
+          </span>
+        )}
+
+        {selectedSize && (
+          <span className="cart-item__option">
+            Size: {selectedSize}
+          </span>
+        )}
       </div>
     </div>
   );

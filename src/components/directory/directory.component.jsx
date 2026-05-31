@@ -8,7 +8,6 @@ import './directory.styles.scss';
 const Directory = () => {
   const dispatch = useDispatch();
   const categories = useSelector(selectCategories);
-  console.log('categories from DB:', categories);
   const isLoading = useSelector(selectCategoriesIsLoading);
 
   useEffect(() => {
@@ -24,8 +23,9 @@ const Directory = () => {
           key={category._id}
           category={{
             ...category,
-            route: `shop/${category.title.toLowerCase()}`, // ✅ generate route from title
+            route: `shop/${category.title.toLowerCase()}`,
           }}
+          isDisabled={category.isActive === false} // ✅ only disable if explicitly false
         />
       ))}
     </div>

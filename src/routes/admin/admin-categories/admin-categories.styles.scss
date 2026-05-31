@@ -1,0 +1,306 @@
+.admin-categories {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.4rem;
+  }
+
+  &__title {
+    font-size: 2.8rem;
+    font-weight: bold;
+    color: #1a1a2e;
+  }
+
+  &__add-btn {
+    padding: 1rem 2rem;
+    background-color: #1a1a2e;
+    color: white;
+    border: none;
+    border-radius: 0.4rem;
+    font-size: 1.4rem;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #4285f4;
+    }
+  }
+
+  &__loading {
+    font-size: 1.6rem;
+    color: #666;
+    text-align: center;
+    padding: 4rem;
+  }
+
+  &__error {
+    font-size: 1.6rem;
+    color: #cc0000;
+    text-align: center;
+    padding: 4rem;
+  }
+
+  // ===============================
+  // Form Overlay
+  // ===============================
+  &__form-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+
+  &__form {
+    background-color: white;
+    padding: 3rem;
+    border-radius: 0.8rem;
+    width: 50rem;
+    max-width: 90%;
+    max-height: 90vh; // ✅ prevent overflow on small screens
+    overflow-y: auto; // ✅ scroll if content is too long
+
+    h2 {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 2rem;
+      color: #1a1a2e;
+    }
+  }
+
+  &__form-field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.6rem;
+
+    label {
+      font-size: 1.2rem;
+      color: #666;
+      margin-bottom: 0.4rem;
+      text-transform: uppercase;
+    }
+
+    input {
+      padding: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 0.4rem;
+      font-size: 1.4rem;
+
+      &:focus {
+        outline: none;
+        border-color: #4285f4;
+      }
+
+      &:disabled {
+        background-color: #f5f5f5; // ✅ grey out disabled input
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  // ✅ OR divider between URL and file upload
+  &__or {
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+
+    &::before,
+    &::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid #ddd;
+    }
+
+    span {
+      padding: 0 1rem;
+      font-size: 1.2rem;
+      color: #999;
+    }
+  }
+
+  &__preview {
+    margin-bottom: 1.6rem;
+
+    img {
+      width: 10rem;
+      height: 10rem;
+      object-fit: cover;
+      border-radius: 0.4rem;
+      border: 1px solid #ddd;
+    }
+  }
+
+  &__form-error {
+    color: #cc0000;
+    font-size: 1.2rem;
+    margin-bottom: 1.2rem;
+  }
+
+  &__form-buttons {
+    display: flex;
+    gap: 1rem;
+  }
+
+  &__save-btn {
+    padding: 1rem 2rem;
+    background-color: #1a1a2e;
+    color: white;
+    border: none;
+    border-radius: 0.4rem;
+    font-size: 1.4rem;
+    cursor: pointer;
+    flex: 1;
+
+    &:hover {
+      background-color: #4285f4;
+    }
+
+    &:disabled {
+      background-color: #999; // ✅ grey out when uploading
+      cursor: not-allowed;
+    }
+  }
+
+  &__cancel-btn {
+    padding: 1rem 2rem;
+    background-color: #f5f5f5;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 0.4rem;
+    font-size: 1.4rem;
+    cursor: pointer;
+    flex: 1;
+
+    &:hover {
+      background-color: #e0e0e0;
+    }
+  }
+
+  // ===============================
+  // Table
+  // ===============================
+  &__table-wrapper {
+    background-color: white;
+    border-radius: 0.8rem;
+    box-shadow: 0 0.2rem 0.8rem rgba(0, 0, 0, 0.08);
+    overflow-x: auto;
+  }
+
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th {
+      text-align: left;
+      padding: 1.2rem 1.6rem;
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      color: #666;
+      border-bottom: 2px solid #f0f0f0;
+    }
+
+    td {
+      padding: 1.2rem 1.6rem;
+      font-size: 1.4rem;
+      color: #333;
+      border-bottom: 1px solid #f0f0f0;
+      vertical-align: middle;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background-color: #f9f9f9;
+    }
+  }
+
+  &__table-img {
+    width: 5rem;
+    height: 5rem;
+    object-fit: cover;
+    border-radius: 0.4rem;
+  }
+
+  &__no-image {
+    font-size: 1.2rem;
+    color: #999;
+  }
+
+  &__status {
+    padding: 0.4rem 1rem;
+    border-radius: 2rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+
+    &--active {
+      background-color: #e8f5e9;
+      color: #4caf50;
+    }
+
+    &--inactive {
+      background-color: #ffebee;
+      color: #f44336;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+  }
+
+  &__edit-btn,
+  &__toggle-btn,
+  &__delete-btn {
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 0.4rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+
+  &__edit-btn {
+    background-color: #e3f2fd;
+    color: #1976d2;
+
+    &:hover {
+      background-color: #bbdefb;
+    }
+  }
+
+  &__toggle-btn {
+    &--deactivate {
+      background-color: #fff3e0;
+      color: #f57c00;
+
+      &:hover {
+        background-color: #ffe0b2;
+      }
+    }
+
+    &--activate {
+      background-color: #e8f5e9;
+      color: #388e3c;
+
+      &:hover {
+        background-color: #c8e6c9;
+      }
+    }
+  }
+
+  &__delete-btn {
+    background-color: #ffebee;
+    color: #d32f2f;
+
+    &:hover {
+      background-color: #ffcdd2;
+    }
+  }
+}

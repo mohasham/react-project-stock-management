@@ -1,5 +1,5 @@
 import react from 'react';
-import { useContext,useState,useEffect, Fragment } from 'react';
+import { useContext, useState, useEffect, Fragment } from 'react';
 //we use selector instead of categories.context
 //Note if we want to use data from redux inside a component we have to use selectors
 import { useSelector } from 'react-redux';
@@ -15,52 +15,47 @@ import './category.styles.scss';
 //he removed this import bcz we want to use redux
 //import { CategoriesContext } from '../../contexts/categories.context';
 
-
- const Category=()=>{
+const Category = () => {
     //this Category component is used to show the full list of categories for each title
     //params give us an object of parameters but bcz we know there is one catgory 
     //we are going to destructure
-    const {category}=useParams();
+    const { category } = useParams();
+
     //getting categoriesMap from CategoriesContext
     //const {categoriesMap}=useContext(CategoriesContext);
+
     //we used this redux instead of useContext
-    //here we are taking the transformed categoriesMap of the categoryArray in the selector
-    //console.log('render/re-rendering category component');
-    const categoriesMap=useSelector(selectCategoriesMap);
-    const isLoading=useSelector(selectCategoriesIsLoading);
+    const categoriesMap = useSelector(selectCategoriesMap);
+    const isLoading = useSelector(selectCategoriesIsLoading);
+
     //this was const [products,setProducts]=useState([]); 
     //but we changed it bcz the first time the categoriesMap render it is empty initially 
     //so it will give us an error when mapping on empty obj
-    const [products,setProducts]=useState(categoriesMap[category]);
-    
-   
+    const [products, setProducts] = useState(categoriesMap[category]);
 
-    useEffect(()=>{
-        //console.log('effect fired calling setProducts');
-        //getting the products of the category title passed
-    //but this will happen everytoime the component rerender so we want to use useEffect
-    //we only want this to rerender only if category changes or categoriesMap changes
-    setProducts(categoriesMap[category]);
+    useEffect(() => {
+        setProducts(categoriesMap[category]);
+    }, [category, categoriesMap]);
 
-    },[category,categoriesMap])
-//returning up the values of the products
-//desplaying the products of a certin category
     return (
         <Fragment>
             {/* we added this h2 to show the title of the selected category 
             we did not put the h2 in the div category-container and added a fragment bcz this div is a grid */}
-              <h2 className='category-title'>{category.toLocaleUpperCase()}</h2>
-              <div className='category-container'>
-            {//here && means if the product is defined render the map as we discussed above
-                products &&
-                products.map((product)=>(
-                <ProductCard key={product.id} product={product}/>
-             )) }
-        </div>
-        </Fragment>
-      
-    )
 
+            <h2 className='category__title'>
+                {category.toLocaleUpperCase()}
+            </h2>
+
+            <div className='category__container'>
+                {
+                    products &&
+                    products.map((product) => (
+                        <ProductCard key={product.id} product={product} />
+                    ))
+                }
+            </div>
+        </Fragment>
+    );
 };
 
 export default Category;

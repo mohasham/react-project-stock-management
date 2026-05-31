@@ -1,16 +1,15 @@
+.category {
+  &__container {
+    margin-bottom: 7rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 2rem;
+    row-gap: 10rem; // it was 5
+  }
 
-.category-container{
-  margin-bottom: 7rem;
-  display: grid;
-  grid-template-columns: repeat(4,1fr);
-  column-gap: 2rem;
-  row-gap: 10rem; //it was 5
-
+  &__title {
+    font-size: 3.8rem;
+    margin-bottom: 2.5rem;
+    text-align: center;
+  }
 }
-
-.category-title{
-font-size: 3.8rem;
-margin-bottom: 2.5rem;
-text-align: center;
-}
-

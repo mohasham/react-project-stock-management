@@ -1,29 +1,38 @@
 import { useNavigate } from 'react-router-dom';
-import'./directory-item.styles.scss';
-//initialize our category item as a functional component
-// do not forget to export
-//here we are passing category as a prop
-//we changed this from CategoryItem to directory Item bcz on directory displayed in home page 
-//whe got a problem of getting styles of same className from 2 style pages
-const DirectoryItem=({category})=>{
-    // we need imageUrl & title
-    const{id,imageUrl,title,route}=category;
-     const navigate=useNavigate();
-    const onNavigateHandler=()=>navigate(route);
-    return(
-        <div key={id} className='directory-item-container' onClick={onNavigateHandler}>
-        {/* // Note we can make a custom style to any element in react by using style={{}} */}
-        <div className='background-image'
-        style={{
-          backgroundImage:`url(${imageUrl})`
-        }} />
-        <div className='body'>
-          <h2>{title}</h2>
-          <p>Shop Now</p>
-        </div>
-      </div>
-    );
+import './directory-item.styles.scss';
 
-}
+const DirectoryItem = ({ category, isDisabled }) => {
+  const { id, imageUrl, title, route, large } = category;
+
+  const navigate = useNavigate();
+
+  const onNavigateHandler = () => {
+    if (isDisabled) return; // ✅ prevent navigation when disabled
+    navigate(route);
+  };
+
+  return (
+    <div
+      key={id}
+      className={`directory-item ${large ? 'directory-item--large' : ''} ${
+        isDisabled ? 'directory-item--disabled' : ''
+      }`}
+      onClick={onNavigateHandler}
+    >
+      <div
+        className='directory-item__background'
+        style={{ backgroundImage: `url(${imageUrl})` }}
+      />
+
+      <div className='directory-item__body'>
+        <h2 className='directory-item__title'>{title}</h2>
+        {/* ✅ show different subtitle when disabled */}
+        <p className='directory-item__subtitle'>
+          {isDisabled ? 'Currently Unavailable' : 'Shop Now'}
+        </p>
+      </div>
+    </div>
+  );
+};
 
 export default DirectoryItem;
