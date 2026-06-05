@@ -81,7 +81,12 @@ const cartSlice = createSlice({
     },
     clearItemFromCart(state, action) {
       state.cartItems = clearCartItem(state.cartItems, action.payload);
-    }
+    },
+    // ✅ clears entire cart — used after placing an order successfully
+    clearCart(state) {
+      state.cartItems = [];
+      state.isCartOpen = false;
+    },
   },
   // ✅ extraReducers listens to actions from OTHER slices
   // we use it here bcz signOutSuccess belongs to user slice not cart slice
@@ -100,7 +105,8 @@ export const {
   setIsCartOpen,
   addItemToCart,
   removeItemFromCart,
-  clearItemFromCart
+  clearItemFromCart,
+  clearCart, // ✅ export clearCart
 } = cartSlice.actions;
 
 export const cartReducer = cartSlice.reducer;

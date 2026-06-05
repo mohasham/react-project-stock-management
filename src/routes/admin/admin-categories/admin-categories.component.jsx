@@ -83,11 +83,41 @@ const AdminCategories = () => {
   };
 
   // ===============================
+  // Validate Form
+  // ✅ validate required fields before submitting
+  // ===============================
+  const validate = () => {
+    if (!formData.title.trim()) {
+      return 'Category title is required';
+    }
+    if (formData.title.trim().length < 2) {
+      return 'Category title must be at least 2 characters';
+    }
+    // ✅ check if title already exists (only for new categories)
+    if (!editingCategory) {
+      const exists = categories.find(
+        cat => cat.title.toLowerCase() === formData.title.trim().toLowerCase()
+      );
+      if (exists) {
+        return 'Category with this title already exists';
+      }
+    }
+    return null; // ✅ no error
+  };
+
+  // ===============================
   // Handle Form Submit (Add / Edit)
   // ===============================
   const handleSubmit = async (e) => {
     e.preventDefault();
     setFormError(null);
+
+    // ✅ validate before submitting
+    const validationError = validate();
+    if (validationError) {
+      setFormError(validationError);
+      return;
+    }
 
     try {
       // ✅ upload image first if file selected
@@ -212,7 +242,6 @@ const AdminCategories = () => {
                   value={formData.title}
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                   placeholder='Category title'
-                  required
                 />
               </div>
 
@@ -253,6 +282,7 @@ const AdminCategories = () => {
                 </div>
               )}
 
+              {/* ✅ show validation or server error */}
               {formError && <p className='admin-categories__form-error'>{formError}</p>}
 
               <div className='admin-categories__form-buttons'>

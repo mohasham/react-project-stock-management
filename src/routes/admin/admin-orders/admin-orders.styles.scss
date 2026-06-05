@@ -1,0 +1,359 @@
+.admin-orders {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.4rem;
+  }
+
+  &__title {
+    font-size: 2.8rem;
+    font-weight: bold;
+    color: #1a1a2e;
+  }
+
+  &__loading,
+  &__error {
+    font-size: 1.6rem;
+    text-align: center;
+    padding: 4rem;
+  }
+
+  &__error {
+    color: #cc0000;
+  }
+
+  // ===============================
+  // Filter
+  // ===============================
+  &__filter {
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.6rem;
+  }
+
+  &__filter-select {
+    padding: 1rem 1.6rem;
+    border: 1px solid #ddd;
+    border-radius: 0.4rem;
+    font-size: 1.4rem;
+    cursor: pointer;
+    background-color: white;
+
+    &:focus {
+      outline: none;
+      border-color: #4285f4;
+    }
+  }
+
+  &__count {
+    font-size: 1.2rem;
+    color: #666;
+  }
+
+  // ===============================
+  // Table
+  // ===============================
+  &__table-wrapper {
+    background-color: white;
+    border-radius: 0.8rem;
+    box-shadow: 0 0.2rem 0.8rem rgba(0, 0, 0, 0.08);
+    overflow-x: auto;
+  }
+
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th {
+      text-align: left;
+      padding: 1.2rem 1.6rem;
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      color: #666;
+      border-bottom: 2px solid #f0f0f0;
+    }
+
+    td {
+      padding: 1.2rem 1.6rem;
+      font-size: 1.4rem;
+      color: #333;
+      border-bottom: 1px solid #f0f0f0;
+      vertical-align: middle;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background-color: #f9f9f9;
+    }
+  }
+
+  &__id {
+    font-family: monospace;
+    font-weight: bold;
+    color: #1a1a2e;
+  }
+
+  &__customer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  &__customer-email {
+    font-size: 1.1rem;
+    color: #999;
+  }
+
+  // ===============================
+  // Status Badge
+  // ===============================
+  &__status {
+    padding: 0.4rem 1rem;
+    border-radius: 2rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: capitalize;
+
+    &--pending {
+      background-color: #fff3e0;
+      color: #f57c00;
+    }
+
+    &--processing {
+      background-color: #e3f2fd;
+      color: #1976d2;
+    }
+
+    &--shipped {
+      background-color: #f3e5f5;
+      color: #7b1fa2;
+    }
+
+    &--delivered {
+      background-color: #e8f5e9;
+      color: #388e3c;
+    }
+
+    &--cancelled {
+      background-color: #ffebee;
+      color: #d32f2f;
+    }
+  }
+
+  // ===============================
+  // Payment Badge
+  // ===============================
+  &__payment {
+    padding: 0.4rem 1rem;
+    border-radius: 2rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: capitalize;
+
+    &--paid {
+      background-color: #e8f5e9;
+      color: #388e3c;
+    }
+
+    &--unpaid {
+      background-color: #ffebee;
+      color: #d32f2f;
+    }
+
+    &--refunded {
+      background-color: #fff3e0;
+      color: #f57c00;
+    }
+  }
+
+  // ===============================
+  // Actions
+  // ===============================
+  &__actions {
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+    flex-wrap: nowrap;
+  }
+
+  &__view-btn,
+  &__delete-btn {
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 0.4rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  &__view-btn {
+    background-color: #e3f2fd;
+    color: #1976d2;
+
+    &:hover {
+      background-color: #bbdefb;
+    }
+  }
+
+  &__delete-btn {
+    background-color: #ffebee;
+    color: #d32f2f;
+
+    &:hover {
+      background-color: #ffcdd2;
+    }
+  }
+
+  &__status-select {
+    padding: 0.6rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 0.4rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+    background-color: white;
+
+    &:focus {
+      outline: none;
+      border-color: #4285f4;
+    }
+  }
+
+  // ===============================
+  // Order Details Modal
+  // ===============================
+  &__modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+
+  &__modal {
+    background-color: white;
+    padding: 3rem;
+    border-radius: 0.8rem;
+    width: 70rem;
+    max-width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  &__modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+
+    h2 {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #1a1a2e;
+    }
+  }
+
+  &__modal-close {
+    background: none;
+    border: none;
+    font-size: 2.4rem;
+    cursor: pointer;
+    color: #666;
+    line-height: 1;
+
+    &:hover {
+      color: #333;
+    }
+  }
+
+  &__modal-section {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #f0f0f0;
+
+    h3 {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: #666;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+
+    p {
+      font-size: 1.4rem;
+      color: #333;
+      margin-bottom: 0.4rem;
+    }
+  }
+
+  // ===============================
+  // Order Items Table inside Modal
+  // ===============================
+  &__items-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1.3rem;
+
+    th {
+      text-align: left;
+      padding: 0.8rem;
+      color: #666;
+      border-bottom: 2px solid #f0f0f0;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+    }
+
+    td {
+      padding: 0.8rem;
+      border-bottom: 1px solid #f0f0f0;
+      color: #333;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+  }
+
+  // ===============================
+  // Order Summary inside Modal
+  // ===============================
+  &__modal-summary {
+    margin-top: 2rem;
+    background-color: #f9f9f9;
+    padding: 1.6rem;
+    border-radius: 0.4rem;
+  }
+
+  &__modal-summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 0;
+    font-size: 1.4rem;
+    border-bottom: 1px solid #f0f0f0;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    span:first-child {
+      color: #666;
+      font-weight: bold;
+    }
+
+    span:last-child {
+      color: #333;
+    }
+  }
+}

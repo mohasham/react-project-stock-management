@@ -78,7 +78,7 @@ const AdminDashboard = () => {
           <span className='admin-dashboard__card-icon'>💰</span>
           <div className='admin-dashboard__card-info'>
             <h3>Total Revenue</h3>
-            <p>${stats.totalRevenue.toFixed(2)}</p>
+            <p>${(stats.totalRevenue || 0).toFixed(2)}</p>
           </div>
         </div>
 
@@ -86,7 +86,7 @@ const AdminDashboard = () => {
           <span className='admin-dashboard__card-icon'>💵</span>
           <div className='admin-dashboard__card-info'>
             <h3>Avg Profit Per Order</h3>
-            <p>${stats.avgProfitPerOrder.toFixed(2)}</p>
+            <p>${(stats.avgProfitPerOrder || 0).toFixed(2)}</p>
           </div>
         </div>
       </div>
@@ -105,7 +105,7 @@ const AdminDashboard = () => {
             {stats.profitPerCategory.map((item) => (
               <tr key={item.category}>
                 <td>{item.category}</td>
-                <td>${item.profit.toFixed(2)}</td>
+                <td>${(item.profit || 0).toFixed(2)}</td>
               </tr>
             ))}
           </tbody>
