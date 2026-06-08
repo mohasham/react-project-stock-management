@@ -1,0 +1,185 @@
+.admin-customers {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.4rem;
+  }
+
+  &__title {
+    font-size: 2.8rem;
+    font-weight: bold;
+    color: #1a1a2e;
+  }
+
+  &__count {
+    font-size: 1.4rem;
+    color: #666;
+  }
+
+  &__loading,
+  &__error {
+    font-size: 1.6rem;
+    text-align: center;
+    padding: 4rem;
+  }
+
+  &__error {
+    color: #cc0000;
+  }
+
+  // ===============================
+  // Search
+  // ===============================
+  &__search {
+    margin-bottom: 2rem;
+  }
+
+  &__search-input {
+    width: 100%;
+    max-width: 40rem;
+    padding: 1rem 1.6rem;
+    border: 1px solid #ddd;
+    border-radius: 0.4rem;
+    font-size: 1.4rem;
+
+    &:focus {
+      outline: none;
+      border-color: #4285f4;
+    }
+  }
+
+  &__search-count {
+    font-size: 1.2rem;
+    color: #666;
+    margin-top: 0.8rem;
+  }
+
+  // ===============================
+  // Table
+  // ===============================
+  &__table-wrapper {
+    background-color: white;
+    border-radius: 0.8rem;
+    box-shadow: 0 0.2rem 0.8rem rgba(0, 0, 0, 0.08);
+    overflow-x: auto;
+  }
+
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th {
+      text-align: left;
+      padding: 1.2rem 1.6rem;
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      color: #666;
+      border-bottom: 2px solid #f0f0f0;
+    }
+
+    td {
+      padding: 1.2rem 1.6rem;
+      font-size: 1.4rem;
+      color: #333;
+      border-bottom: 1px solid #f0f0f0;
+      vertical-align: middle;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background-color: #f9f9f9;
+    }
+  }
+
+  // ===============================
+  // Sign in Method Badge
+  // ===============================
+  &__method {
+    padding: 0.4rem 1rem;
+    border-radius: 2rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+
+    &--google {
+      background-color: #e3f2fd;
+      color: #1976d2;
+    }
+
+    &--email {
+      background-color: #f3e5f5;
+      color: #7b1fa2;
+    }
+  }
+
+  // ===============================
+  // Status Badge
+  // ===============================
+  &__status {
+    padding: 0.4rem 1rem;
+    border-radius: 2rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+
+    &--active {
+      background-color: #e8f5e9;
+      color: #388e3c;
+    }
+
+    &--inactive {
+      background-color: #ffebee;
+      color: #d32f2f;
+    }
+  }
+
+  // ===============================
+  // Actions
+  // ===============================
+  &__actions {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: nowrap;
+  }
+
+  &__toggle-btn,
+  &__delete-btn {
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 0.4rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  &__toggle-btn {
+    &--deactivate {
+      background-color: #fff3e0;
+      color: #f57c00;
+
+      &:hover {
+        background-color: #ffe0b2;
+      }
+    }
+
+    &--activate {
+      background-color: #e8f5e9;
+      color: #388e3c;
+
+      &:hover {
+        background-color: #c8e6c9;
+      }
+    }
+  }
+
+  &__delete-btn {
+    background-color: #ffebee;
+    color: #d32f2f;
+
+    &:hover {
+      background-color: #ffcdd2;
+    }
+  }
+}

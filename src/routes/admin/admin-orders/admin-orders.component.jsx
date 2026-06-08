@@ -60,22 +60,22 @@ const AdminOrders = () => {
   // ===============================
   // Delete Order
   // ===============================
-  const handleDelete = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this order?')) return;
-    try {
-      const response = await fetch(`http://localhost:5000/api/orders/admin/${id}`, {
-        method: 'DELETE',
-        headers: { Authorization: `Bearer ${getToken()}` }
-      });
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.message);
-      await fetchOrders();
-      // ✅ close modal if deleted order was open
-      if (selectedOrder?._id === id) setSelectedOrder(null);
-    } catch (error) {
-      setError(error.message);
-    }
-  };
+  // const handleDelete = async (id) => {
+  //   if (!window.confirm('Are you sure you want to delete this order?')) return;
+  //   try {
+  //     const response = await fetch(`http://localhost:5000/api/orders/admin/${id}`, {
+  //       method: 'DELETE',
+  //       headers: { Authorization: `Bearer ${getToken()}` }
+  //     });
+  //     const data = await response.json();
+  //     if (!response.ok) throw new Error(data.message);
+  //     await fetchOrders();
+  //     // ✅ close modal if deleted order was open
+  //     if (selectedOrder?._id === id) setSelectedOrder(null);
+  //   } catch (error) {
+  //     setError(error.message);
+  //   }
+  // };
 
   // ===============================
   // Get status badge class
@@ -206,12 +206,12 @@ const AdminOrders = () => {
                       <option value='cancelled'>Cancelled</option>
                     </select>
 
-                    <button
+                    {/* <button
                       className='admin-orders__delete-btn'
                       onClick={() => handleDelete(order._id)}
                     >
                       🗑️ Delete
-                    </button>
+                    </button> */}
                   </div>
                 </td>
               </tr>

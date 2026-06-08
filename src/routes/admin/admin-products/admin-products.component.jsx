@@ -120,7 +120,7 @@ const AdminProducts = () => {
   };
 
   // ===============================
-  // Add Color with Quantity
+  // Add Color with Quantity — only for new colors
   // ===============================
   const handleAddColor = () => {
     if (!newColor.trim() || !newColorQty) return;
@@ -143,6 +143,33 @@ const AdminProducts = () => {
       ...formData,
       colors: formData.colors.filter(c => c !== color),
       colorStock: formData.colorStock.filter(cs => cs.color !== color),
+    });
+  };
+
+  // ===============================
+  // Inc / Dec color quantity
+  // ✅ instead of removing and re-adding — use arrows to adjust qty
+  // ===============================
+  const handleIncColorQty = (color) => {
+    setFormData({
+      ...formData,
+      colorStock: formData.colorStock.map(cs =>
+        cs.color === color
+          ? { ...cs, quantity: cs.quantity + 1 }
+          : cs
+      ),
+    });
+  };
+
+  const handleDecColorQty = (color) => {
+    setFormData({
+      ...formData,
+      colorStock: formData.colorStock.map(cs =>
+        cs.color === color
+          // ✅ minimum quantity is 0 — cannot go below 0
+          ? { ...cs, quantity: Math.max(0, cs.quantity - 1) }
+          : cs
+      ),
     });
   };
 
@@ -227,20 +254,20 @@ const AdminProducts = () => {
   // ===============================
   // Handle Delete
   // ===============================
-  const handleDelete = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this product?')) return;
-    try {
-      const response = await fetch(`http://localhost:5000/api/admin/products/${id}`, {
-        method: 'DELETE',
-        headers: { Authorization: `Bearer ${getToken()}` }
-      });
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.message);
-      await fetchProducts();
-    } catch (error) {
-      setError(error.message);
-    }
-  };
+  // const handleDelete = async (id) => {
+  //   if (!window.confirm('Are you sure you want to delete this product?')) return;
+  //   try {
+  //     const response = await fetch(`http://localhost:5000/api/admin/products/${id}`, {
+  //       method: 'DELETE',
+  //       headers: { Authorization: `Bearer ${getToken()}` }
+  //     });
+  //     const data = await response.json();
+  //     if (!response.ok) throw new Error(data.message);
+  //     await fetchProducts();
+  //   } catch (error) {
+  //     setError(error.message);
+  //   }
+  // };
 
   // ===============================
   // Handle Toggle isActive
@@ -472,7 +499,10 @@ const AdminProducts = () => {
                 </div>
               </div>
 
-              {/* Colors with Quantity — each color has its own stock */}
+              {/* Colors with Quantity
+                  ✅ existing colors use inc/dec arrows
+                  ✅ new colors use add input
+              */}
               <div className='admin-products__form-field'>
                 <label>Colors & Quantity</label>
                 <div className='admin-products__color-stock'>
@@ -483,12 +513,40 @@ const AdminProducts = () => {
                         className='admin-products__color-swatch'
                         style={{ backgroundColor: cs.color.toLowerCase() }}
                       />
-                      <span>{cs.color}</span>
-                      <span>Qty: {cs.quantity}</span>
-                      <button type='button' onClick={() => handleRemoveColor(cs.color)}>×</button>
+                      <span className='admin-products__color-name'>{cs.color}</span>
+
+                      {/* ✅ inc/dec arrows for quantity adjustment */}
+                      <div className='admin-products__qty-control'>
+                        <button
+                          type='button'
+                          className='admin-products__qty-btn'
+                          onClick={() => handleDecColorQty(cs.color)}
+                        >
+                          −
+                        </button>
+                        <span className='admin-products__qty-value'>{cs.quantity}</span>
+                        <button
+                          type='button'
+                          className='admin-products__qty-btn'
+                          onClick={() => handleIncColorQty(cs.color)}
+                        >
+                          +
+                        </button>
+                      </div>
+
+                      {/* ✅ remove color button */}
+                      <button
+                        type='button'
+                        className='admin-products__remove-color-btn'
+                        onClick={() => handleRemoveColor(cs.color)}
+                      >
+                        ×
+                      </button>
                     </div>
                   ))}
                 </div>
+
+                {/* ✅ add new color */}
                 <div className='admin-products__add-color-row'>
                   <input
                     type='text'
@@ -645,12 +703,12 @@ const AdminProducts = () => {
                     >
                       {product.isActive ? '🔴 Deactivate' : '🟢 Activate'}
                     </button>
-                    <button
+                    {/* <button
                       className='admin-products__delete-btn'
                       onClick={() => handleDelete(product._id)}
                     >
                       🗑️ Delete
-                    </button>
+                    </button> */}
                   </div>
                 </td>
               </tr>

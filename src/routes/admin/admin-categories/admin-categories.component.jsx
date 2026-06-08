@@ -151,23 +151,23 @@ const AdminCategories = () => {
   // ===============================
   // Handle Delete
   // ===============================
-  const handleDelete = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this category?')) return;
+  // const handleDelete = async (id) => {
+  //   if (!window.confirm('Are you sure you want to delete this category?')) return;
 
-    try {
-      const response = await fetch(`http://localhost:5000/api/admin/categories/${id}`, {
-        method: 'DELETE',
-        headers: { Authorization: `Bearer ${getToken()}` }
-      });
+  //   try {
+  //     const response = await fetch(`http://localhost:5000/api/admin/categories/${id}`, {
+  //       method: 'DELETE',
+  //       headers: { Authorization: `Bearer ${getToken()}` }
+  //     });
 
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.message);
+  //     const data = await response.json();
+  //     if (!response.ok) throw new Error(data.message);
 
-      await fetchCategories();
-    } catch (error) {
-      setError(error.message);
-    }
-  };
+  //     await fetchCategories();
+  //   } catch (error) {
+  //     setError(error.message);
+  //   }
+  // };
 
   // ===============================
   // Handle Toggle isActive
@@ -365,12 +365,12 @@ const AdminCategories = () => {
                     >
                       {category.isActive ? '🔴 Deactivate' : '🟢 Activate'}
                     </button>
-                    <button
+                    {/* <button
                       className='admin-categories__delete-btn'
                       onClick={() => handleDelete(category._id)}
                     >
                       🗑️ Delete
-                    </button>
+                    </button> */}
                   </div>
                 </td>
               </tr>

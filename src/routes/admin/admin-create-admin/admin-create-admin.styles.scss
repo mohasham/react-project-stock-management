@@ -1,0 +1,94 @@
+.admin-create-admin {
+  &__header {
+    margin-bottom: 3rem;
+  }
+
+  &__title {
+    font-size: 2.8rem;
+    font-weight: bold;
+    color: #1a1a2e;
+    margin-bottom: 0.8rem;
+  }
+
+  &__subtitle {
+    font-size: 1.4rem;
+    color: #666;
+  }
+
+  &__form-wrapper {
+    background-color: white;
+    padding: 3rem;
+    border-radius: 0.8rem;
+    box-shadow: 0 0.2rem 0.8rem rgba(0, 0, 0, 0.08);
+    max-width: 50rem;
+    //we use this margin to center the eles in the form
+    margin: 0 auto;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+
+    label {
+      font-size: 1.2rem;
+      color: #666;
+      text-transform: uppercase;
+    }
+
+    input,
+    select {
+      padding: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 0.4rem;
+      font-size: 1.4rem;
+
+      &:focus {
+        outline: none;
+        border-color: #4285f4;
+      }
+    }
+  }
+
+  &__error {
+    color: #cc0000;
+    font-size: 1.3rem;
+    padding: 1rem;
+    background-color: #ffebee;
+    border-radius: 0.4rem;
+  }
+
+  &__success {
+    color: #388e3c;
+    font-size: 1.3rem;
+    padding: 1rem;
+    background-color: #e8f5e9;
+    border-radius: 0.4rem;
+  }
+
+  &__btn {
+    padding: 1.2rem;
+    background-color: #1a1a2e;
+    color: white;
+    border: none;
+    border-radius: 0.4rem;
+    font-size: 1.4rem;
+    cursor: pointer;
+    margin-top: 0.8rem;
+
+    &:hover {
+      background-color: #4285f4;
+    }
+
+    &:disabled {
+      background-color: #999;
+      cursor: not-allowed;
+    }
+  }
+}
