@@ -38,7 +38,7 @@ const Navigation = () => {
         <li><Link to='/' className='navigation__link'>Home</Link></li>
         <li><Link to='shop' className='navigation__link'>Shop</Link></li>
         <li><Link to='features' className='navigation__link'>Features</Link></li>
-        <li><a className='navigation__link' href='#'>Contact</a></li>
+        <li><Link to='contact' className='navigation__link'>Contact</Link></li>
       </ul>
       <div className='navigation__icons'>
         <CartIcon />

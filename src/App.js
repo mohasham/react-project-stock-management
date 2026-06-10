@@ -11,6 +11,7 @@ import Authentication from './routes/authentication/authentication.component';
 import Checkout from './routes/checkout/checkout.component';
 import AuthCallback from './routes/auth-callback/auth-callback.component';
 import Features from './routes/features/features.component';
+import Contact from './routes/contact/contact.component';
 import AdminAuth from './routes/admin-auth/admin-auth.component';
 import AdminLayout from './routes/admin/admin-layout/admin-layout.component';
 import AdminProtectedRoute from './components/admin-protected-route/admin-protected-route.component';
@@ -50,6 +51,7 @@ const App = () => {
           <Route path="auth/admin-login" element={<AdminAuth />} />
           <Route path="checkout" element={<Checkout />} />
           <Route path="features" element={<Features />} />
+          <Route path="contact" element={<Contact />} />
         </Route>
 
         <Route
