@@ -1,0 +1,6 @@
+// ✅ breakpoints in em — based on browser default 16px (not affected by our 1rem=10px override)
+$breakpoint-xs: 30em;  // 480px
+$breakpoint-sm: 48em;  // 768px
+$breakpoint-md: 64em;  // 1024px
+$breakpoint-lg: 80em;  // 1280px
+$breakpoint-xl: 90em;  // 1440px

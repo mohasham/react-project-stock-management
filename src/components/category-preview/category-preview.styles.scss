@@ -1,7 +1,13 @@
+@use '../../styles/mixins' as *;
+
 .category-preview {
   display: flex;
   flex-direction: column;
   margin-bottom: 10rem; //it was 3rem
+
+  @include sm {
+    margin-bottom: 5rem;
+  }
 
   &__container {
     display: flex;
@@ -14,11 +20,27 @@
     font-size: 2.8rem;
     margin-bottom: 2.5rem;
     cursor: pointer;
+
+    @include xs {
+      font-size: 2.2rem;
+    }
   }
 
   &__preview {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     column-gap: 2rem;
+
+    // ✅ reduce to 2 columns on tablet
+    @include md {
+      grid-template-columns: repeat(2, 1fr);
+      row-gap: 3rem;
+    }
+
+    // ✅ single column on mobile
+    @include xs {
+      grid-template-columns: 1fr;
+      row-gap: 2.4rem;
+    }
   }
 }

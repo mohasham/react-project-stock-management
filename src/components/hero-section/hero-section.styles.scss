@@ -1,3 +1,5 @@
+@use '../../styles/mixins' as *;
+
 .hero {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -6,12 +8,28 @@
 
   align-items: center;
 
+  // ✅ stack into single column on tablet and below
+  @include sm {
+    grid-template-columns: 1fr;
+    padding: 3rem 2rem;
+    gap: 3rem;
+  }
+
+  @include xs {
+    padding: 2rem 1.6rem;
+  }
+
   &__text {
     display: flex;
     flex-direction: column;
     gap: 1.5rem; // 15px
     align-items: center;
     text-align: center;
+
+    // ✅ move text above image on small screens
+    @include sm {
+      order: 1;
+    }
   }
 
   &__title {
@@ -19,6 +37,10 @@
     font-size: 2.5rem; // 25px
     font-weight: 700;
     color: #1F3521;
+
+    @include xs {
+      font-size: 2rem;
+    }
   }
 
   &__description {
@@ -26,6 +48,10 @@
     color: #345C45;
     max-width: 50rem; // 500px
     line-height: 1.6;
+
+    @include xs {
+      font-size: 1rem;
+    }
   }
 
   &__btn {
@@ -45,6 +71,11 @@
   }
 
   &__image {
+    // ✅ image appears below text on small screens
+    @include sm {
+      order: 2;
+    }
+
     &-img {
       width: 100%;
       border-radius: 2rem; // 20px

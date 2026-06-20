@@ -1,3 +1,5 @@
+@use '../../styles/mixins' as *;
+
 .category {
   &__container {
     margin-bottom: 7rem;
@@ -5,11 +7,33 @@
     grid-template-columns: repeat(4, 1fr);
     column-gap: 2rem;
     row-gap: 10rem; // it was 5
+
+    // ✅ 2 columns on tablet/laptop
+    @include md {
+      grid-template-columns: repeat(2, 1fr);
+      row-gap: 6rem;
+    }
+
+    // ✅ single column on mobile
+    @include xs {
+      grid-template-columns: 1fr;
+      row-gap: 4rem;
+      column-gap: 0;
+    }
   }
 
   &__title {
     font-size: 3.8rem;
     margin-bottom: 2.5rem;
     text-align: center;
+
+    @include sm {
+      font-size: 2.8rem;
+    }
+
+    @include xs {
+      font-size: 2.2rem;
+      margin-bottom: 1.6rem;
+    }
   }
 }

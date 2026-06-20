@@ -1,3 +1,5 @@
+@use '../../styles/mixins' as *;
+
 .checkout {
   width: 55%;
   min-height: 90vh;
@@ -7,12 +9,29 @@
   margin: 5rem auto 0;
   font-size: 1.6rem;
 
+  // ✅ widen container on laptop/tablet
+  @include md {
+    width: 75%;
+  }
+
+  // ✅ full width with padding once items become stacked cards
+  @include sm {
+    width: 100%;
+    padding: 0 1.6rem;
+    margin: 3rem auto 0;
+  }
+
   &__header {
     width: 100%;
     padding: 1rem 0;
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid darkgrey;
+
+    // ✅ hide table header once checkout items become stacked cards
+    @include sm {
+      display: none;
+    }
   }
 
   &__header-block {
@@ -28,6 +47,13 @@
     margin-top: 3rem;
     margin-left: auto;
     font-size: 3.6rem;
+
+    @include sm {
+      font-size: 2.8rem;
+      margin-left: 0;
+      width: 100%;
+      text-align: right;
+    }
   }
 
   // ===============================
@@ -39,6 +65,11 @@
     padding: 2rem;
     background-color: #f9f9f9;
     border-radius: 0.8rem;
+
+    @include sm {
+      padding: 1.6rem;
+      margin-top: 2rem;
+    }
   }
 
   &__shipping-title {
@@ -46,6 +77,10 @@
     font-weight: bold;
     margin-bottom: 1.6rem;
     color: #1a1a2e;
+
+    @include sm {
+      font-size: 1.7rem;
+    }
   }
 
   &__shipping-optional {
@@ -79,6 +114,12 @@
     display: flex;
     gap: 1.6rem;
     width: 100%;
+
+    // ✅ stack city/country fields
+    @include xs {
+      flex-direction: column;
+      gap: 0;
+    }
   }
 
   // ===============================
@@ -111,6 +152,11 @@
     cursor: pointer;
     margin-top: 2rem;
 
+    @include sm {
+      font-size: 1.4rem;
+      padding: 1.4rem;
+    }
+
     &:hover {
       background-color: #4285f4;
     }
@@ -128,16 +174,28 @@
     text-align: center;
     padding: 4rem;
 
+    @include sm {
+      padding: 2.4rem 1.2rem;
+    }
+
     h2 {
       font-size: 2.4rem;
       margin-bottom: 1.6rem;
       color: #388e3c;
+
+      @include sm {
+        font-size: 2rem;
+      }
     }
 
     p {
       font-size: 1.6rem;
       color: #666;
       margin-bottom: 2.4rem;
+
+      @include sm {
+        font-size: 1.4rem;
+      }
     }
   }
 

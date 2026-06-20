@@ -1,3 +1,5 @@
+@use '../../styles/mixins' as *;
+
 .product-card {
   width: 100%;
   display: flex;
@@ -18,6 +20,10 @@
     justify-content: space-between;
     font-size: 1.6rem;
     margin-bottom: 1rem;
+
+    @include xs {
+      font-size: 1.4rem;
+    }
   }
 
   &__name {
@@ -52,6 +58,7 @@
     justify-content: center;
     gap: 0.5rem;
     margin-top: 0.3rem;
+    flex-wrap: wrap; // ✅ wrap on small screens instead of overflowing
   }
 
   &__color {
@@ -128,9 +135,19 @@
     pointer-events: none;
   }
 
-  // ✅ only apply hover transform if product is NOT inactive
-  &:not(#{&}--inactive):hover {
-    // we add - bcz in y dir we want it to go up
-    transform: translateY(-1.5rem) scale(1.03);
+  // ✅ only apply hover transform on devices that actually support hover (desktop/mouse)
+  // touch devices (phones/tablets) don't get this — prevents "stuck hover" bugs
+  @media (hover: hover) {
+    &:not(#{&}--inactive):hover {
+      // we add - bcz in y dir we want it to go up
+      transform: translateY(-1.5rem) scale(1.03);
+    }
+  }
+
+  // ✅ subtle tap feedback for touch devices instead of hover
+  &:not(#{&}--inactive):active {
+    @include xs {
+      transform: scale(0.98);
+    }
   }
 }

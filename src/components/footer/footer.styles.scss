@@ -1,8 +1,14 @@
+@use '../../styles/mixins' as *;
+
 .footer {
   background-color: #1b4332;
   color: #fff;
   padding: 4rem 2rem; // 40px 20px
   font-size: 1.4rem; // 14px
+
+  @include sm {
+    padding: 3rem 1.6rem;
+  }
 
   &__content {
     display: flex;
@@ -11,6 +17,12 @@
     gap: 4rem; // 40px
     max-width: 120rem; // 1200px
     margin: 0 auto;
+
+    // ✅ stack sections vertically on small screens
+    @include sm {
+      flex-direction: column;
+      gap: 2.4rem;
+    }
   }
 
   &__section {
@@ -19,13 +31,17 @@
   }
 
   &__logo {
-    display: inline-block; // ✅ so Link wraps logo properly
+    display: inline-block;
   }
 
   &__logo-img {
-    height: 4rem; // ✅ adjust based on your logo's proportions
+    height: 4rem;
     width: auto;
     margin-bottom: 1rem;
+
+    @include xs {
+      height: 3.2rem;
+    }
   }
 
   &__social-title {
@@ -68,6 +84,12 @@
   &__form {
     display: flex;
     margin-top: 1rem;
+
+    // ✅ stack input and button on very small screens
+    @include xs {
+      flex-direction: column;
+      gap: 0.8rem;
+    }
   }
 
   &__input {
@@ -76,6 +98,10 @@
     border-radius: 0.4rem 0 0 0.4rem;
     flex: 1;
     font-size: 1.4rem;
+
+    @include xs {
+      border-radius: 0.4rem;
+    }
   }
 
   &__button {
@@ -87,6 +113,10 @@
     border-radius: 0 0.4rem 0.4rem 0;
     cursor: pointer;
     transition: background 0.3s ease;
+
+    @include xs {
+      border-radius: 0.4rem;
+    }
 
     &:hover {
       background-color: #74c69d;
@@ -101,10 +131,19 @@
     padding-top: 2rem;
     gap: 2rem;
 
+    @include sm {
+      justify-content: center;
+      margin-top: 2.4rem;
+    }
+
     & > .footer__line {
       flex-grow: 1;
       height: 0.1rem;
       background-color: #ccc;
+
+      @include sm {
+        display: none; // ✅ hide divider line on small screens for cleaner look
+      }
     }
   }
 
@@ -112,6 +151,12 @@
     display: flex;
     gap: 2rem;
     font-size: 1.2rem;
+
+    @include xs {
+      flex-direction: column;
+      gap: 0.8rem;
+      text-align: center;
+    }
 
     a {
       color: #ccc;

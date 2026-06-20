@@ -1,3 +1,5 @@
+@use '../../styles/mixins' as *;
+
 .navigation {
   background-color: #C6EBC5;
   display: flex;
@@ -6,14 +8,26 @@
   padding: 1.5rem 4rem; // 15px 40px
   border-bottom: 0.2rem solid #345C45; // 2px
 
+  // ✅ stack nav vertically on tablet and below
+  @include sm {
+    flex-direction: column;
+    gap: 1.6rem;
+    padding: 1.2rem 2rem;
+  }
+
   &__logo {
-    display: flex; // ✅ align logo properly inside Link
+    display: flex;
     align-items: center;
   }
 
   &__logo-img {
-    height: 5rem; // ✅ adjust based on your logo's proportions
+    height: 4rem;
     width: auto;
+
+    // ✅ smaller logo on small screens
+    @include xs {
+      height: 3.2rem;
+    }
   }
 
   &__links {
@@ -22,6 +36,17 @@
     gap: 3rem; // 30px
     margin: 0;
     padding: 0;
+
+    // ✅ wrap links and reduce gap on smaller screens
+    @include sm {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.6rem;
+    }
+
+    @include xs {
+      gap: 1.2rem;
+    }
   }
 
   &__link {
@@ -29,6 +54,10 @@
     color: #1F3521;
     font-weight: 500;
     font-size: 1.4rem; // 14px
+
+    @include xs {
+      font-size: 1.2rem;
+    }
   }
 
   &__icons {
@@ -48,35 +77,33 @@
 
   /* Dropdown menu */
   &__dropdown-menu {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  margin-top: 0.5rem;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 0.5rem;
 
-  display: flex;
-  flex-direction: column; /* ✅ stack items vertically */
+    display: flex;
+    flex-direction: column; /* ✅ stack items vertically */
 
-  min-width: 18rem;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 0.8rem;
-  box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  z-index: 1000;
-}
+    min-width: 18rem;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 0.8rem;
+    box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    z-index: 1000;
+  }
 
-/* Each dropdown item */
-&__dropdown-item {
-  display: block; /* ✅ take full width */
-  padding: 1.2rem 1.6rem;
-  text-decoration: none;
-  color: #333;
-  transition: background-color 0.2s ease;
-}
+  /* Each dropdown item */
+  &__dropdown-item {
+    display: block; /* ✅ take full width */
+    padding: 1.2rem 1.6rem;
+    text-decoration: none;
+    color: #333;
+    transition: background-color 0.2s ease;
+  }
 
-&__dropdown-item:hover {
-  background-color: #f5f5f5;
-}
-
-
+  &__dropdown-item:hover {
+    background-color: #f5f5f5;
+  }
 }

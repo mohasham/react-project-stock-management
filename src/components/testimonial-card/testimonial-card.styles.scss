@@ -1,3 +1,5 @@
+@use '../../styles/mixins' as *;
+
 .testimonial-card {
   background-color: #f9f9f9;
   border-radius: 1rem; // 10px
@@ -8,6 +10,13 @@
   transition: background-color 0.3s ease;
   position: relative;
 
+  // ✅ allow full width on small screens since they stack
+  @include sm {
+    max-width: 100%;
+    width: 100%;
+    padding: 2.4rem;
+  }
+
   &--highlight {
     background-color: #c5f2d0; // light mint green
   }
@@ -15,13 +24,17 @@
   &__quote {
     font-style: italic;
     margin-bottom: 1rem;
+
+    @include xs {
+      font-size: 1.3rem;
+    }
   }
 
   &__name {
     margin-bottom: 0.5rem;
   }
 
-  //this before psuedo class is used to add the double qoute 
+  //this before psuedo class is used to add the double qoute
   &::before {
     content: "\201C";
     position: absolute;
