@@ -10,6 +10,7 @@ import { selectIsCartOpen } from '../../store/cart/cart.selector';
 import { Link } from 'react-router-dom';
 import Button, { BUTTON_TYPE_CLASSES } from '../button/button.component';
 import SignOutIcon from '../icons/sign-out-icon.component';
+import { ReactComponent as Logo } from '../../assets/images/logo.svg'; // ✅ import logo as component
 import './navigation.styles.scss';
 import { useState } from 'react';
 
@@ -33,7 +34,11 @@ const Navigation = () => {
 
   return (
     <nav className='navigation'>
-      <div className='navigation__logo'>Rivo</div>
+      {/* ✅ logo as SVG component instead of img tag */}
+      <Link to='/' className='navigation__logo'>
+        <Logo className='navigation__logo-img' />
+      </Link>
+
       <ul className='navigation__links'>
         <li><Link to='/' className='navigation__link'>Home</Link></li>
         <li><Link to='shop' className='navigation__link'>Shop</Link></li>

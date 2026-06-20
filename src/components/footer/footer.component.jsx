@@ -1,5 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom'; // ✅ import Link
 import FormInput from '../form-input/form-input.component';
+import { ReactComponent as Logo } from '../../assets/images/logo.svg';
 import './footer.styles.scss';
 
 const Footer = () => {
@@ -8,15 +10,17 @@ const Footer = () => {
       <div className="footer__content">
         {/* Brand + Social */}
         <div className="footer__section">
-  <h2 className="footer__brand">Rivo</h2>
-  <p className="footer__social-title">Social Media</p>
-  <div className="footer__icons">
-    <i className="bi bi-facebook"></i>
-    <i className="bi bi-twitter"></i>
-    <i className="bi bi-instagram"></i>
-  </div>
-</div>
-
+          {/* ✅ logo wrapped in Link to navigate home */}
+          <Link to='/' className="footer__logo">
+            <Logo className="footer__logo-img" />
+          </Link>
+          <p className="footer__social-title">Social Media</p>
+          <div className="footer__icons">
+            <i className="bi bi-facebook"></i>
+            <i className="bi bi-twitter"></i>
+            <i className="bi bi-instagram"></i>
+          </div>
+        </div>
 
         {/* Shop */}
         <div className="footer__section">

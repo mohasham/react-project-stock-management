@@ -7,9 +7,13 @@
   border-bottom: 0.2rem solid #345C45; // 2px
 
   &__logo {
-    font-weight: bold;
-    font-size: 2.4rem; // 24px
-    color: #1F3521;
+    display: flex; // ✅ align logo properly inside Link
+    align-items: center;
+  }
+
+  &__logo-img {
+    height: 5rem; // ✅ adjust based on your logo's proportions
+    width: auto;
   }
 
   &__links {
