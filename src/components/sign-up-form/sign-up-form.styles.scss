@@ -1,18 +1,39 @@
+@use '../../styles/mixins' as *;
+
 .sign-up-form {
   display: flex;
   flex-direction: column;
   width: 38rem;
 
+  // ✅ shrink to fit smaller screens instead of a fixed 38rem
+  @include sm {
+    width: 100%;
+    max-width: 38rem;
+  }
+
+  @include xs {
+    max-width: 100%;
+    padding: 0 0.4rem;
+  }
+
   &__title {
     margin: 1rem 0;
     font-size: 2.4rem;
     font-weight: bold;
+
+    @include xs {
+      font-size: 2rem;
+    }
   }
 
   &__subtitle {
     margin-bottom: 1.6rem;
     font-size: 1.4rem;
     color: #666;
+
+    @include xs {
+      font-size: 1.3rem;
+    }
   }
 
   &__field {
@@ -32,6 +53,6 @@
     display: flex;
     justify-content: center;
     align-items: flex-start;
-
   }
 }
+

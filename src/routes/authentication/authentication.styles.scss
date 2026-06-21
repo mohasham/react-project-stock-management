@@ -1,12 +1,31 @@
-
-
-
+@use '../../styles/mixins' as *;
 
 //before adding styledComponents
-.authentication-container{
-    display: flex;
-    width: 90rem;
-    justify-content: space-between;
-    // this sets the top and bottom margins to 30 pixels and the left and right margins to "auto".
-    margin: 3rem auto;
+.authentication-container {
+  display: flex;
+  width: 90rem;
+  justify-content: space-between;
+  // this sets the top and bottom margins to 30 pixels and the left and right margins to "auto".
+  margin: 3rem auto;
+
+  // ✅ shrink width on tablet/laptop
+  @include md {
+    width: 90%;
+  }
+
+  // ✅ stack sign-in and sign-up forms vertically on tablet/mobile
+  @include sm {
+    flex-direction: column;
+    width: 90%;
+    align-items: center;
+    gap: 4rem;
+    margin: 2rem auto;
+  }
+
+  @include xs {
+    width: 100%;
+    padding: 0 1.6rem;
+    margin: 1.6rem auto;
+    gap: 3rem;
+  }
 }

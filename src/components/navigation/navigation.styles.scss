@@ -2,17 +2,23 @@
 
 .navigation {
   background-color: #C6EBC5;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.5rem 4rem; // 15px 40px
-  border-bottom: 0.2rem solid #345C45; // 2px
+  border-bottom: 0.2rem solid #345C45;
 
-  // ✅ stack nav vertically on tablet and below
-  @include sm {
-    flex-direction: column;
-    gap: 1.6rem;
-    padding: 1.2rem 2rem;
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 4rem; // 15px 40px
+    flex-wrap: wrap; // ✅ allow wrapping if content overflows on small screens
+
+    @include sm {
+      padding: 1.2rem 2rem;
+    }
+
+    @include xs {
+      padding: 1rem 1.2rem;
+      gap: 1rem;
+    }
   }
 
   &__logo {
@@ -24,50 +30,121 @@
     height: 4rem;
     width: auto;
 
-    // ✅ smaller logo on small screens
     @include xs {
       height: 3.2rem;
     }
   }
 
+  // ===============================
+  // Hamburger Button — only visible on mobile
+  // ===============================
+  &__hamburger {
+    display: none; // ✅ hidden by default on desktop
+    flex-direction: column;
+    justify-content: space-between;
+    width: 2.8rem;
+    height: 2rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    flex-shrink: 0; // ✅ prevent hamburger from shrinking
+
+    @include sm {
+      display: flex; // ✅ show only on tablet/mobile
+    }
+  }
+
+  &__hamburger-line {
+    width: 100%;
+    height: 0.3rem;
+    background-color: #1F3521;
+    border-radius: 0.2rem;
+    transition: all 0.3s ease;
+
+    // ✅ animate into an X when menu is open
+    &--open:nth-child(1) {
+      transform: translateY(0.85rem) rotate(45deg);
+    }
+
+    &--open:nth-child(2) {
+      opacity: 0;
+    }
+
+    &--open:nth-child(3) {
+      transform: translateY(-0.85rem) rotate(-45deg);
+    }
+  }
+
+  // ===============================
+  // Base links styling — applies to both desktop & mobile lists
+  // ===============================
   &__links {
     list-style: none;
     display: flex;
-    gap: 3rem; // 30px
+    gap: 3rem;
     margin: 0;
     padding: 0;
+  }
 
-    // ✅ wrap links and reduce gap on smaller screens
+  // ===============================
+  // Desktop Links — visible by default, hidden on mobile
+  // ✅ placed AFTER &__links so display:none properly overrides display:flex
+  // ===============================
+  &__links--desktop {
     @include sm {
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1.6rem;
+      display: none; // ✅ hide inline links on mobile, hamburger menu takes over
     }
+  }
 
-    @include xs {
-      gap: 1.2rem;
+  // ===============================
+  // Mobile Dropdown Links — hidden by default, shown only when hamburger toggled
+  // ===============================
+  &__links--mobile {
+    display: none; // ✅ hidden on desktop, only rendered conditionally on mobile via JS
+
+    @include sm {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      padding: 1.2rem 0;
+      border-top: 1px solid #345C45;
+      width: 100%; // ✅ take full width since it's a new row below &__top
     }
+  }
+
+  &__links--mobile &__link {
+    width: 100%;
+    text-align: center;
+    padding: 1.2rem;
   }
 
   &__link {
     text-decoration: none;
     color: #1F3521;
     font-weight: 500;
-    font-size: 1.4rem; // 14px
+    font-size: 1.4rem;
 
     @include xs {
-      font-size: 1.2rem;
+      font-size: 1.3rem;
     }
   }
 
   &__icons {
     display: flex;
     align-items: center;
-    gap: 1.5rem; // 15px
+    gap: 1.5rem;
+    flex-shrink: 0; // ✅ prevent icons/buttons from being squeezed and overflowing
+
+    // ✅ reduce gap on very small screens
+    @include xs {
+      gap: 0.8rem;
+    }
   }
 
   &__cart {
-    font-size: 1.8rem; // 18px
+    font-size: 1.8rem;
   }
 
   &__login-dropdown {
@@ -75,7 +152,6 @@
     display: inline-block;
   }
 
-  /* Dropdown menu */
   &__dropdown-menu {
     position: absolute;
     top: 100%;
@@ -83,7 +159,7 @@
     margin-top: 0.5rem;
 
     display: flex;
-    flex-direction: column; /* ✅ stack items vertically */
+    flex-direction: column;
 
     min-width: 18rem;
     background-color: #fff;
@@ -92,11 +168,16 @@
     box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.1);
     overflow: hidden;
     z-index: 1000;
+
+    // ✅ prevent dropdown from overflowing off-screen on very small widths
+    @include xs {
+      right: -1rem;
+      min-width: 16rem;
+    }
   }
 
-  /* Each dropdown item */
   &__dropdown-item {
-    display: block; /* ✅ take full width */
+    display: block;
     padding: 1.2rem 1.6rem;
     text-decoration: none;
     color: #333;

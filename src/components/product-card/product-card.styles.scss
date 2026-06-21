@@ -144,9 +144,10 @@
     }
   }
 
-  // ✅ subtle tap feedback for touch devices instead of hover
+  // ✅ subtle tap feedback for touch devices — now applies up to md (tablets included)
+  // since tablets are touch devices too and don't get the hover effect above
   &:not(#{&}--inactive):active {
-    @include xs {
+    @include md {
       transform: scale(0.98);
     }
   }

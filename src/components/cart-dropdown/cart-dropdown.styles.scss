@@ -1,3 +1,5 @@
+@use '../../styles/mixins' as *;
+
 .cart-dropdown {
   position: absolute;
   width: 26rem;
@@ -10,6 +12,23 @@
   top: 9rem;
   right: 4rem;
   z-index: 5;
+  box-sizing: border-box; // ✅ ensure padding doesn't push content/button outside bounds
+
+  // ✅ tablet — nav top row height differs, push dropdown down further to clear the icon
+  @include sm {
+    width: 21rem;
+    top: 7rem;
+    right: 2rem;
+  }
+
+  // ✅ mobile — near full-width, pushed further down to clear hamburger + icons row
+  @include xs {
+    width: 40%;
+    height: 30rem;
+    top: 6.5rem;
+    right: 1.2rem;
+    padding: 1.6rem;
+  }
 
   &__container {
     display: flex;
@@ -21,15 +40,26 @@
     height: 24rem;
     display: flex;
     flex-direction: column;
-    overflow: scroll;
+    overflow-y: auto; // ✅ scroll only vertically, avoid horizontal scrollbar issues
+    flex: 1; // ✅ let items grow/shrink so button stays inside the fixed-height container
+
+    @include xs {
+      height: auto; // ✅ let flex:1 handle sizing instead of fixed height on small screens
+    }
   }
 
   &__empty-message {
     font-size: 1.8rem;
     margin: 5rem auto;
+
+    @include xs {
+      font-size: 1.5rem;
+      margin: 4rem auto;
+    }
   }
 
   &__button {
-    margin-top: auto;
+    margin-top: 1.2rem; // ✅ fixed spacing instead of margin-top: auto, keeps it visible inside the box
+    flex-shrink: 0; // ✅ prevent button from being squeezed/pushed out
   }
 }

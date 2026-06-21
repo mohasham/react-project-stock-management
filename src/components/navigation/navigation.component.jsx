@@ -10,7 +10,7 @@ import { selectIsCartOpen } from '../../store/cart/cart.selector';
 import { Link } from 'react-router-dom';
 import Button, { BUTTON_TYPE_CLASSES } from '../button/button.component';
 import SignOutIcon from '../icons/sign-out-icon.component';
-import { ReactComponent as Logo } from '../../assets/images/logo.svg'; // ✅ import logo as component
+import { ReactComponent as Logo } from '../../assets/images/logo.svg';
 import './navigation.styles.scss';
 import { useState } from 'react';
 
@@ -20,9 +20,12 @@ const Navigation = () => {
   const isCartOpen = useSelector(selectIsCartOpen);
   const dispatch = useDispatch();
   const [isLoginMenuOpen, setIsLoginMenuOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // ✅ hamburger menu state
 
   const toggleLoginMenu = () => setIsLoginMenuOpen(!isLoginMenuOpen);
   const closeLoginMenu = () => setIsLoginMenuOpen(false);
+  const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen); // ✅ toggle hamburger
+  const closeMobileMenu = () => setIsMobileMenuOpen(false); // ✅ close on link click
 
   const handleCustomerSignOut = () => {
     dispatch(signOutStart());
@@ -34,71 +37,93 @@ const Navigation = () => {
 
   return (
     <nav className='navigation'>
-      {/* ✅ logo as SVG component instead of img tag */}
-      <Link to='/' className='navigation__logo'>
-        <Logo className='navigation__logo-img' />
-      </Link>
+      <div className='navigation__top'>
+        {/* logo */}
+        <Link to='/' className='navigation__logo'>
+          <Logo className='navigation__logo-img' />
+        </Link>
 
-      <ul className='navigation__links'>
-        <li><Link to='/' className='navigation__link'>Home</Link></li>
-        <li><Link to='shop' className='navigation__link'>Shop</Link></li>
-        <li><Link to='features' className='navigation__link'>Features</Link></li>
-        <li><Link to='contact' className='navigation__link'>Contact</Link></li>
-      </ul>
-      <div className='navigation__icons'>
-        <CartIcon />
-        {isCartOpen && <CartDropdown />}
+        {/* ✅ hamburger button — only visible on mobile via CSS */}
+        <button
+          className='navigation__hamburger'
+          onClick={toggleMobileMenu}
+          aria-label='Toggle menu'
+        >
+          <span className={`navigation__hamburger-line ${isMobileMenuOpen ? 'navigation__hamburger-line--open' : ''}`} />
+          <span className={`navigation__hamburger-line ${isMobileMenuOpen ? 'navigation__hamburger-line--open' : ''}`} />
+          <span className={`navigation__hamburger-line ${isMobileMenuOpen ? 'navigation__hamburger-line--open' : ''}`} />
+        </button>
 
-        {/* ✅ show admin sign out if admin is logged in */}
-        {currentAdmin ? (
-          <Button
-            type='button'
-            buttonType={BUTTON_TYPE_CLASSES.signOut}
-            onClick={handleAdminSignOut}
-          >
-            <SignOutIcon /> Admin Sign Out
-          </Button>
-        ) : currentUser ? (
-          // ✅ show customer sign out if customer is logged in
-          <Button
-            type='button'
-            buttonType={BUTTON_TYPE_CLASSES.signOut}
-            onClick={handleCustomerSignOut}
-          >
-            <SignOutIcon /> Sign Out
-          </Button>
-        ) : (
-          // ✅ show login dropdown if nobody is logged in
-          <div className='navigation__login-dropdown'>
+        {/* desktop links — hidden on mobile via CSS */}
+        <ul className='navigation__links navigation__links--desktop'>
+          <li><Link to='/' className='navigation__link'>Home</Link></li>
+          <li><Link to='shop' className='navigation__link'>Shop</Link></li>
+          <li><Link to='features' className='navigation__link'>Features</Link></li>
+          <li><Link to='contact' className='navigation__link'>Contact</Link></li>
+        </ul>
+
+        <div className='navigation__icons'>
+          <CartIcon />
+          {isCartOpen && <CartDropdown />}
+
+          {currentAdmin ? (
             <Button
               type='button'
-              onClick={toggleLoginMenu}
+              buttonType={BUTTON_TYPE_CLASSES.signOut}
+              onClick={handleAdminSignOut}
             >
-              Login ▼
+              <SignOutIcon /> Admin Sign Out
             </Button>
+          ) : currentUser ? (
+            <Button
+              type='button'
+              buttonType={BUTTON_TYPE_CLASSES.signOut}
+              onClick={handleCustomerSignOut}
+            >
+              <SignOutIcon /> Sign Out
+            </Button>
+          ) : (
+            <div className='navigation__login-dropdown'>
+              <Button
+                type='button'
+                onClick={toggleLoginMenu}
+              >
+                Login ▼
+              </Button>
 
-            {isLoginMenuOpen && (
-              <div className='navigation__dropdown-menu'>
-                <Link
-                  to='/auth'
-                  className='navigation__dropdown-item'
-                  onClick={closeLoginMenu}
-                >
-                  Customer Login
-                </Link>
+              {isLoginMenuOpen && (
+                <div className='navigation__dropdown-menu'>
+                  <Link
+                    to='/auth'
+                    className='navigation__dropdown-item'
+                    onClick={closeLoginMenu}
+                  >
+                    Customer Login
+                  </Link>
 
-                <Link
-                  to='/auth/admin-login'
-                  className='navigation__dropdown-item'
-                  onClick={closeLoginMenu}
-                >
-                  Admin Login
-                </Link>
-              </div>
-            )}
-          </div>
-        )}
+                  <Link
+                    to='/auth/admin-login'
+                    className='navigation__dropdown-item'
+                    onClick={closeLoginMenu}
+                  >
+                    Admin Login
+                  </Link>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
       </div>
+
+      {/* ✅ mobile dropdown links — only shown when hamburger is open */}
+      {isMobileMenuOpen && (
+        <ul className='navigation__links navigation__links--mobile'>
+          <li><Link to='/' className='navigation__link' onClick={closeMobileMenu}>Home</Link></li>
+          <li><Link to='shop' className='navigation__link' onClick={closeMobileMenu}>Shop</Link></li>
+          <li><Link to='features' className='navigation__link' onClick={closeMobileMenu}>Features</Link></li>
+          <li><Link to='contact' className='navigation__link' onClick={closeMobileMenu}>Contact</Link></li>
+        </ul>
+      )}
     </nav>
   );
 };
