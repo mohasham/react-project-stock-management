@@ -1,15 +1,29 @@
+@use '../../../styles/mixins' as *;
+
 .admin-dashboard {
   &__title {
     font-size: 2.8rem;
     font-weight: bold;
     margin-bottom: 0.8rem;
     color: #1a1a2e;
+
+    @include sm {
+      font-size: 2.2rem;
+    }
+
+    @include xs {
+      font-size: 1.9rem;
+    }
   }
 
   &__subtitle {
     font-size: 1.4rem;
     color: #666;
     margin-bottom: 3rem;
+
+    @include sm {
+      margin-bottom: 2.2rem;
+    }
   }
 
   &__loading {
@@ -31,6 +45,21 @@
     grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
     gap: 2rem;
     margin-bottom: 4rem;
+
+    @include md {
+      grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+      gap: 1.6rem;
+    }
+
+    @include sm {
+      grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+      gap: 1.2rem;
+      margin-bottom: 2.4rem;
+    }
+
+    @include xs {
+      grid-template-columns: 1fr;
+    }
   }
 
   &__card {
@@ -43,8 +72,23 @@
     box-shadow: 0 0.2rem 0.8rem rgba(0, 0, 0, 0.08);
     transition: transform 0.2s ease;
 
-    &:hover {
-      transform: translateY(-0.4rem);
+    @include sm {
+      padding: 1.6rem;
+      gap: 1.2rem;
+    }
+
+    // ✅ only apply hover lift on devices that support real hover
+    @media (hover: hover) {
+      &:hover {
+        transform: translateY(-0.4rem);
+      }
+    }
+
+    // ✅ tap feedback for touch devices instead of hover
+    &:active {
+      @include md {
+        transform: scale(0.98);
+      }
     }
 
     &--green {
@@ -60,6 +104,10 @@
 
   &__card-icon {
     font-size: 3.2rem;
+
+    @include sm {
+      font-size: 2.6rem;
+    }
   }
 
   &__card-info {
@@ -69,6 +117,10 @@
       margin: 0 0 0.4rem 0;
       text-transform: uppercase;
       letter-spacing: 0.5px;
+
+      @include xs {
+        font-size: 1.1rem;
+      }
     }
 
     p {
@@ -76,6 +128,14 @@
       font-weight: bold;
       color: #1a1a2e;
       margin: 0;
+
+      @include sm {
+        font-size: 2rem;
+      }
+
+      @include xs {
+        font-size: 1.8rem;
+      }
     }
   }
 
@@ -84,6 +144,12 @@
     border-radius: 0.8rem;
     padding: 2rem;
     box-shadow: 0 0.2rem 0.8rem rgba(0, 0, 0, 0.08);
+
+    @include sm {
+      padding: 1.6rem;
+      // ✅ allow horizontal scroll on small screens instead of squeezing the table
+      overflow-x: auto;
+    }
   }
 
   &__section-title {
@@ -91,11 +157,20 @@
     font-weight: bold;
     color: #1a1a2e;
     margin-bottom: 1.6rem;
+
+    @include sm {
+      font-size: 1.6rem;
+    }
   }
 
   &__table {
     width: 100%;
     border-collapse: collapse;
+
+    // ✅ ensure table doesn't get crushed below a usable width — scrolls instead
+    @include sm {
+      min-width: 50rem;
+    }
 
     th {
       text-align: left;
@@ -104,6 +179,11 @@
       text-transform: uppercase;
       color: #666;
       border-bottom: 2px solid #f0f0f0;
+
+      @include sm {
+        padding: 1rem;
+        font-size: 1.1rem;
+      }
     }
 
     td {
@@ -111,14 +191,22 @@
       font-size: 1.4rem;
       color: #333;
       border-bottom: 1px solid #f0f0f0;
+
+      @include sm {
+        padding: 1rem;
+        font-size: 1.3rem;
+      }
     }
 
     tr:last-child td {
       border-bottom: none;
     }
 
-    tr:hover td {
-      background-color: #f9f9f9;
+    // ✅ only apply hover row highlight on devices that support real hover
+    @media (hover: hover) {
+      tr:hover td {
+        background-color: #f9f9f9;
+      }
     }
   }
 }

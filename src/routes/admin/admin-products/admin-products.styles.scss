@@ -1,15 +1,27 @@
+@use '../../../styles/mixins' as *;
+
 .admin-products {
   &__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 2.4rem;
+
+    @include sm {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.2rem;
+    }
   }
 
   &__title {
     font-size: 2.8rem;
     font-weight: bold;
     color: #1a1a2e;
+
+    @include sm {
+      font-size: 2.2rem;
+    }
   }
 
   &__add-btn {
@@ -20,9 +32,22 @@
     border-radius: 0.4rem;
     font-size: 1.4rem;
     cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.15s ease;
 
-    &:hover {
-      background-color: #4285f4;
+    @include sm {
+      width: 100%;
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: #4285f4;
+      }
+    }
+
+    &:active {
+      @include md {
+        transform: scale(0.97);
+      }
     }
   }
 
@@ -51,6 +76,11 @@
     font-size: 1.4rem;
     cursor: pointer;
     background-color: white;
+    max-width: 100%;
+
+    @include sm {
+      width: 100%;
+    }
 
     &:focus {
       outline: none;
@@ -72,6 +102,10 @@
     justify-content: center;
     align-items: center;
     z-index: 1000;
+
+    @include xs {
+      align-items: flex-end;
+    }
   }
 
   &__form {
@@ -83,11 +117,35 @@
     max-height: 90vh;
     overflow-y: auto;
 
+    @include md {
+      width: 56rem;
+      padding: 2.8rem;
+    }
+
+    @include sm {
+      width: 90%;
+      max-width: 60rem;
+      padding: 2.4rem;
+    }
+
+    @include xs {
+      max-width: 100%;
+      width: 100%;
+      border-radius: 0.8rem 0.8rem 0 0;
+      max-height: 90vh;
+      padding: 2rem 1.6rem;
+    }
+
     h2 {
       font-size: 2rem;
       font-weight: bold;
       margin-bottom: 2rem;
       color: #1a1a2e;
+
+      @include sm {
+        font-size: 1.7rem;
+        margin-bottom: 1.6rem;
+      }
     }
   }
 
@@ -95,6 +153,11 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1.6rem;
+
+    @include xs {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
   }
 
   &__form-field {
@@ -116,6 +179,7 @@
       border: 1px solid #ddd;
       border-radius: 0.4rem;
       font-size: 1.4rem;
+      min-width: 0;
 
       &:focus {
         outline: none;
@@ -187,6 +251,7 @@
 
     input {
       flex: 1;
+      min-width: 0;
     }
   }
 
@@ -199,14 +264,27 @@
     font-size: 1.2rem;
     cursor: pointer;
     white-space: nowrap;
+    transition: background-color 0.2s ease, transform 0.15s ease;
 
-    &:hover {
-      background-color: #4285f4;
+    @include xs {
+      padding: 0.8rem 1.2rem;
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: #4285f4;
+      }
+    }
+
+    &:active {
+      @include md {
+        transform: scale(0.95);
+      }
     }
   }
 
   // ===============================
-  // Color Stock
+  // Color Stock (form)
   // ===============================
   &__color-stock {
     display: flex;
@@ -223,7 +301,12 @@
     background-color: #f5f5f5;
     border-radius: 0.4rem;
     font-size: 1.2rem;
-    
+    flex-wrap: wrap;
+
+    @include xs {
+      gap: 0.6rem;
+    }
+
     button {
       background: none;
       border: none;
@@ -246,17 +329,31 @@
     display: flex;
     gap: 0.8rem;
 
+    @include xs {
+      flex-wrap: wrap;
+    }
+
     input:first-child {
       flex: 2;
+      min-width: 0;
+
+      @include xs {
+        flex: 1 1 100%;
+      }
     }
 
     input:nth-child(2) {
       flex: 1;
+      min-width: 0;
+
+      @include xs {
+        flex: 1;
+      }
     }
   }
 
   // ===============================
-  // Image Preview
+  // Image Preview (form)
   // ===============================
   &__preview {
     margin-bottom: 1.6rem;
@@ -267,6 +364,11 @@
       object-fit: cover;
       border-radius: 0.4rem;
       border: 1px solid #ddd;
+
+      @include xs {
+        width: 8rem;
+        height: 8rem;
+      }
     }
   }
 
@@ -279,6 +381,10 @@
   &__form-buttons {
     display: flex;
     gap: 1rem;
+
+    @include xs {
+      flex-direction: column;
+    }
   }
 
   &__save-btn {
@@ -290,9 +396,18 @@
     font-size: 1.4rem;
     cursor: pointer;
     flex: 1;
+    transition: background-color 0.2s ease, transform 0.15s ease;
 
-    &:hover {
-      background-color: #4285f4;
+    @media (hover: hover) {
+      &:hover {
+        background-color: #4285f4;
+      }
+    }
+
+    &:active {
+      @include md {
+        transform: scale(0.97);
+      }
     }
 
     &:disabled {
@@ -310,49 +425,95 @@
     font-size: 1.4rem;
     cursor: pointer;
     flex: 1;
+    transition: background-color 0.2s ease;
 
-    &:hover {
-      background-color: #e0e0e0;
+    @media (hover: hover) {
+      &:hover {
+        background-color: #e0e0e0;
+      }
+    }
+
+    &:active {
+      @include md {
+        background-color: #d8d8d8;
+      }
     }
   }
 
   // ===============================
-  // Table
+  // Table — shrinks aggressively to fit without scrolling
   // ===============================
   &__table-wrapper {
     background-color: white;
     border-radius: 0.8rem;
     box-shadow: 0 0.2rem 0.8rem rgba(0, 0, 0, 0.08);
-    overflow-x: auto;
+    overflow-x: hidden; // ✅ no scroll — content shrinks to fit instead
   }
 
   &__table {
     width: 100%;
+    table-layout: fixed; // ✅ forces columns to share available width instead of growing with content
     border-collapse: collapse;
 
     th {
       text-align: left;
-      padding: 1.2rem 1.6rem;
+      padding: 1.2rem 0.8rem;
       font-size: 1.2rem;
       text-transform: uppercase;
       color: #666;
       border-bottom: 2px solid #f0f0f0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      @include md {
+        padding: 0.8rem 0.5rem;
+        font-size: 1rem;
+      }
+
+      @include sm {
+        padding: 0.6rem 0.4rem;
+        font-size: 0.9rem;
+      }
+
+      @include xs {
+        padding: 0.5rem 0.3rem;
+        font-size: 0.8rem;
+      }
     }
 
     td {
-      padding: 1.2rem 1.6rem;
+      padding: 1.2rem 0.8rem;
       font-size: 1.4rem;
       color: #333;
       border-bottom: 1px solid #f0f0f0;
       vertical-align: middle;
+      overflow: hidden;
+
+      @include md {
+        padding: 0.8rem 0.5rem;
+        font-size: 1.1rem;
+      }
+
+      @include sm {
+        padding: 0.6rem 0.4rem;
+        font-size: 1rem;
+      }
+
+      @include xs {
+        padding: 0.5rem 0.3rem;
+        font-size: 0.9rem;
+      }
     }
 
     tr:last-child td {
       border-bottom: none;
     }
 
-    tr:hover td {
-      background-color: #f9f9f9;
+    @media (hover: hover) {
+      tr:hover td {
+        background-color: #f9f9f9;
+      }
     }
   }
 
@@ -361,11 +522,30 @@
     height: 5rem;
     object-fit: cover;
     border-radius: 0.4rem;
+
+    @include md {
+      width: 3.6rem;
+      height: 3.6rem;
+    }
+
+    @include sm {
+      width: 3rem;
+      height: 3rem;
+    }
+
+    @include xs {
+      width: 2.4rem;
+      height: 2.4rem;
+    }
   }
 
   &__no-image {
     font-size: 1.2rem;
     color: #999;
+
+    @include sm {
+      font-size: 0.9rem;
+    }
   }
 
   &__status {
@@ -373,6 +553,23 @@
     border-radius: 2rem;
     font-size: 1.2rem;
     font-weight: bold;
+    white-space: nowrap;
+    display: inline-block;
+
+    @include md {
+      padding: 0.3rem 0.7rem;
+      font-size: 1rem;
+    }
+
+    @include sm {
+      padding: 0.2rem 0.5rem;
+      font-size: 0.85rem;
+    }
+
+    @include xs {
+      padding: 0.2rem 0.4rem;
+      font-size: 0.75rem;
+    }
 
     &--active {
       background-color: #e8f5e9;
@@ -387,26 +584,51 @@
 
   &__actions {
     display: flex;
-    gap: 0.8rem;
-    flex-wrap: nowrap;
+    flex-direction: column; // ✅ stack buttons vertically to save horizontal space
+    gap: 0.4rem;
   }
 
   &__edit-btn,
   &__toggle-btn,
   &__delete-btn {
-    padding: 0.6rem 1.2rem; 
+    padding: 0.5rem 0.8rem;
     border: none;
     border-radius: 0.4rem;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.2s ease, transform 0.15s ease;
+
+    @include md {
+      padding: 0.4rem 0.6rem;
+      font-size: 0.95rem;
+    }
+
+    @include sm {
+      padding: 0.3rem 0.5rem;
+      font-size: 0.8rem;
+    }
+
+    @include xs {
+      padding: 0.25rem 0.4rem;
+      font-size: 0.7rem;
+    }
+
+    &:active {
+      @include md {
+        transform: scale(0.95);
+      }
+    }
   }
 
   &__edit-btn {
     background-color: #e3f2fd;
     color: #1976d2;
 
-    &:hover {
-      background-color: #bbdefb;
+    @media (hover: hover) {
+      &:hover {
+        background-color: #bbdefb;
+      }
     }
   }
 
@@ -415,8 +637,10 @@
       background-color: #fff3e0;
       color: #f57c00;
 
-      &:hover {
-        background-color: #ffe0b2;
+      @media (hover: hover) {
+        &:hover {
+          background-color: #ffe0b2;
+        }
       }
     }
 
@@ -424,8 +648,10 @@
       background-color: #e8f5e9;
       color: #388e3c;
 
-      &:hover {
-        background-color: #c8e6c9;
+      @media (hover: hover) {
+        &:hover {
+          background-color: #c8e6c9;
+        }
       }
     }
   }
@@ -434,85 +660,124 @@
     background-color: #ffebee;
     color: #d32f2f;
 
-    &:hover {
-      background-color: #ffcdd2;
+    @media (hover: hover) {
+      &:hover {
+        background-color: #ffcdd2;
+      }
     }
   }
 
+  // ✅ compact chip-style color stock display — saves space vs full rows
+  &__color-stock-display {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+  }
+
+  &__color-stock-item {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 1.2rem;
+    background-color: #f5f5f5;
+    padding: 0.2rem 0.5rem;
+    border-radius: 1rem;
+
+    @include md {
+      font-size: 1rem;
+      padding: 0.15rem 0.4rem;
+    }
+
+    @include sm {
+      font-size: 0.85rem;
+      padding: 0.1rem 0.3rem;
+    }
+
+    @include xs {
+      font-size: 0.7rem;
+    }
+
+    span:last-child {
+      @include xs {
+        display: none; // ✅ at smallest size, show only the color dot, hide text label to save space
+      }
+    }
+  }
+
+  &__count {
+    font-size: 1.2rem;
+    color: #666;
+    margin-top: 0.8rem;
+  }
+
   // ===============================
-// Color Stock Display in Table
-// ===============================
-&__color-stock-display {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-
-&__color-stock-item {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-size: 1.2rem;
-}
-
-// ===============================
-// Count display
-// ===============================
-&__count {
-  font-size: 1.2rem;
-  color: #666;
-  margin-top: 0.8rem;
-}
-
-// ===============================
-// Quantity Control (Inc/Dec arrows)
-// ===============================
-&__qty-control {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-}
-
-&__qty-btn {
-  width: 2.4rem;
-  height: 2.4rem;
-  border: 1px solid #ddd;
-  border-radius: 0.4rem;
-  background: white;
-  cursor: pointer;
-  font-size: 1.4rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  &:hover {
-    background-color: #f0f0f0;
+  // Quantity Control (Inc/Dec arrows) — form only
+  // ===============================
+  &__qty-control {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
   }
-}
 
-&__qty-value {
-  min-width: 3rem;
-  text-align: center;
-  font-size: 1.4rem;
-  font-weight: bold;
-}
+  &__qty-btn {
+    width: 2.4rem;
+    height: 2.4rem;
+    border: 1px solid #ddd;
+    border-radius: 0.4rem;
+    background: white;
+    cursor: pointer;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease, transform 0.1s ease;
 
-&__color-name {
-  flex: 1;
-  font-size: 1.3rem;
-}
+    @media (hover: hover) {
+      &:hover {
+        background-color: #f0f0f0;
+      }
+    }
 
-&__remove-color-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #d32f2f;
-  font-size: 1.8rem;
-  line-height: 1;
-  padding: 0 0.4rem;
-
-  &:hover {
-    color: #b71c1c;
+    &:active {
+      @include md {
+        background-color: #e8e8e8;
+        transform: scale(0.92);
+      }
+    }
   }
-}
+
+  &__qty-value {
+    min-width: 3rem;
+    text-align: center;
+    font-size: 1.4rem;
+    font-weight: bold;
+  }
+
+  &__color-name {
+    flex: 1;
+    font-size: 1.3rem;
+  }
+
+  &__remove-color-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #d32f2f;
+    font-size: 1.8rem;
+    line-height: 1;
+    padding: 0 0.4rem;
+    transition: color 0.2s ease;
+
+    @media (hover: hover) {
+      &:hover {
+        color: #b71c1c;
+      }
+    }
+
+    &:active {
+      @include md {
+        transform: scale(0.9);
+      }
+    }
+  }
 }

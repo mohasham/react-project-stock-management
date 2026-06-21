@@ -1,3 +1,5 @@
+@use '../../../styles/mixins' as *;
+
 .admin-layout {
   display: flex;
   min-height: 100vh;
@@ -13,6 +15,21 @@
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 100;
+    transition: transform 0.3s ease;
+
+    @include md {
+      width: 20rem;
+    }
+
+    @include sm {
+      width: 24rem;
+      transform: translateX(-100%);
+
+      &--open {
+        transform: translateX(0);
+      }
+    }
   }
 
   &__logo {
@@ -25,6 +42,10 @@
       font-weight: bold;
       color: white;
       margin: 0 0 0.5rem 0;
+
+      @include md {
+        font-size: 1.7rem;
+      }
     }
 
     span {
@@ -47,9 +68,22 @@
     transition: all 0.2s ease;
     border-left: 3px solid transparent;
 
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-      color: white;
+    @include md {
+      padding: 1.3rem 1.6rem;
+      font-size: 1.3rem;
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: white;
+      }
+    }
+
+    &:active {
+      @include md {
+        background-color: rgba(255, 255, 255, 0.15);
+      }
     }
 
     &--active {
@@ -69,17 +103,81 @@
     cursor: pointer;
     font-size: 1.4rem;
     text-align: left;
+    transition: background-color 0.2s ease, transform 0.15s ease;
 
-    &:hover {
-      background-color: #bb2d3b;
+    @media (hover: hover) {
+      &:hover {
+        background-color: #bb2d3b;
+      }
+    }
+
+    &:active {
+      @include md {
+        transform: scale(0.97);
+      }
+    }
+  }
+
+  &__mobile-toggle {
+    display: none;
+    position: fixed;
+    top: 1.6rem;
+    left: 1.6rem;
+    z-index: 101;
+    width: 4rem;
+    height: 4rem;
+    background-color: #1a1a2e;
+    border: none;
+    border-radius: 0.4rem;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+
+    @include sm {
+      display: flex;
+    }
+  }
+
+  &__overlay {
+    display: none;
+
+    @include sm {
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 99;
     }
   }
 
   &__content {
-    margin-left: 25rem; // ✅ offset by sidebar width
+    margin-left: 25rem;
     flex: 1;
+    min-width: 0; // ✅ critical fix — lets content shrink below children's natural width so the table's overflow-x:auto can actually work
     padding: 3rem;
     background-color: #f5f5f5;
     min-height: 100vh;
+    overflow-x: hidden; // ✅ page itself never scrolls horizontally — only the table wrapper inside does
+
+    @include md {
+      margin-left: 20rem;
+      padding: 2.4rem;
+    }
+
+    @include sm {
+      margin-left: 0;
+      padding: 2rem 1.6rem;
+      padding-top: 6rem;
+    }
+
+    @include xs {
+      padding: 1.6rem 1.2rem;
+      padding-top: 5.6rem;
+    }
   }
 }

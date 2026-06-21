@@ -1,15 +1,27 @@
+@use '../../../styles/mixins' as *;
+
 .admin-customers {
   &__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 2.4rem;
+
+    @include sm {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.8rem;
+    }
   }
 
   &__title {
     font-size: 2.8rem;
     font-weight: bold;
     color: #1a1a2e;
+
+    @include sm {
+      font-size: 2.2rem;
+    }
   }
 
   &__count {
@@ -43,6 +55,10 @@
     border-radius: 0.4rem;
     font-size: 1.4rem;
 
+    @include sm {
+      max-width: 100%;
+    }
+
     &:focus {
       outline: none;
       border-color: #4285f4;
@@ -56,17 +72,23 @@
   }
 
   // ===============================
-  // Table
+  // Table — only 5 simple columns (Name, Email, Method, Status, Joined, Actions)
+  // so it compresses cleanly without needing aggressive shrinking
   // ===============================
   &__table-wrapper {
     background-color: white;
     border-radius: 0.8rem;
     box-shadow: 0 0.2rem 0.8rem rgba(0, 0, 0, 0.08);
-    overflow-x: auto;
+    overflow-x: hidden; // ✅ no scroll — columns shrink to fit instead
+
+    @include sm {
+      padding: 0.8rem;
+    }
   }
 
   &__table {
     width: 100%;
+    table-layout: fixed; // ✅ forces columns to share width instead of growing with content
     border-collapse: collapse;
 
     th {
@@ -76,6 +98,24 @@
       text-transform: uppercase;
       color: #666;
       border-bottom: 2px solid #f0f0f0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      @include md {
+        padding: 1rem 1.1rem;
+        font-size: 1.1rem;
+      }
+
+      @include sm {
+        padding: 0.8rem 0.7rem;
+        font-size: 1rem;
+      }
+
+      @include xs {
+        padding: 0.6rem 0.5rem;
+        font-size: 0.88rem;
+      }
     }
 
     td {
@@ -84,14 +124,35 @@
       color: #333;
       border-bottom: 1px solid #f0f0f0;
       vertical-align: middle;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap; // ✅ prevent long emails from breaking row height
+
+      @include md {
+        padding: 1rem 1.1rem;
+        font-size: 1.25rem;
+      }
+
+      @include sm {
+        padding: 0.8rem 0.7rem;
+        font-size: 1.1rem;
+      }
+
+      @include xs {
+        padding: 0.6rem 0.5rem;
+        font-size: 0.95rem;
+      }
     }
 
     tr:last-child td {
       border-bottom: none;
     }
 
-    tr:hover td {
-      background-color: #f9f9f9;
+    // ✅ only apply hover row highlight on devices that support real hover
+    @media (hover: hover) {
+      tr:hover td {
+        background-color: #f9f9f9;
+      }
     }
   }
 
@@ -103,6 +164,18 @@
     border-radius: 2rem;
     font-size: 1.2rem;
     font-weight: bold;
+    white-space: nowrap;
+    display: inline-block;
+
+    @include sm {
+      padding: 0.3rem 0.8rem;
+      font-size: 1.05rem;
+    }
+
+    @include xs {
+      padding: 0.25rem 0.6rem;
+      font-size: 0.9rem;
+    }
 
     &--google {
       background-color: #e3f2fd;
@@ -123,6 +196,18 @@
     border-radius: 2rem;
     font-size: 1.2rem;
     font-weight: bold;
+    white-space: nowrap;
+    display: inline-block;
+
+    @include sm {
+      padding: 0.3rem 0.8rem;
+      font-size: 1.05rem;
+    }
+
+    @include xs {
+      padding: 0.25rem 0.6rem;
+      font-size: 0.9rem;
+    }
 
     &--active {
       background-color: #e8f5e9;
@@ -136,12 +221,19 @@
   }
 
   // ===============================
-  // Actions
+  // Actions — only 2 buttons (Toggle + Delete), stays horizontal even at smaller sizes
+  // since it never gets as cramped as orders' 3-control row
   // ===============================
   &__actions {
     display: flex;
     gap: 0.8rem;
     flex-wrap: nowrap;
+
+    // ✅ only stack at the very smallest screens where 2 buttons truly can't both fit comfortably
+    @include xs {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
   }
 
   &__toggle-btn,
@@ -152,6 +244,30 @@
     font-size: 1.2rem;
     cursor: pointer;
     white-space: nowrap;
+    transition: background-color 0.2s ease, transform 0.15s ease;
+
+    @include md {
+      padding: 0.55rem 1.05rem;
+      font-size: 1.1rem;
+    }
+
+    @include sm {
+      padding: 0.5rem 0.9rem;
+      font-size: 1.05rem;
+    }
+
+    @include xs {
+      padding: 0.5rem 0.8rem;
+      font-size: 1rem;
+      width: 100%; // ✅ full width once stacked
+    }
+
+    // ✅ tap feedback for touch devices instead of hover
+    &:active {
+      @include md {
+        transform: scale(0.95);
+      }
+    }
   }
 
   &__toggle-btn {
@@ -159,8 +275,11 @@
       background-color: #fff3e0;
       color: #f57c00;
 
-      &:hover {
-        background-color: #ffe0b2;
+      // ✅ only apply hover on devices that support real hover
+      @media (hover: hover) {
+        &:hover {
+          background-color: #ffe0b2;
+        }
       }
     }
 
@@ -168,8 +287,10 @@
       background-color: #e8f5e9;
       color: #388e3c;
 
-      &:hover {
-        background-color: #c8e6c9;
+      @media (hover: hover) {
+        &:hover {
+          background-color: #c8e6c9;
+        }
       }
     }
   }
@@ -178,8 +299,10 @@
     background-color: #ffebee;
     color: #d32f2f;
 
-    &:hover {
-      background-color: #ffcdd2;
+    @media (hover: hover) {
+      &:hover {
+        background-color: #ffcdd2;
+      }
     }
   }
 }

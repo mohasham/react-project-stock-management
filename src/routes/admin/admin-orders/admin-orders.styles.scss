@@ -1,15 +1,27 @@
+@use '../../../styles/mixins' as *;
+
 .admin-orders {
   &__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 2.4rem;
+
+    @include sm {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.2rem;
+    }
   }
 
   &__title {
     font-size: 2.8rem;
     font-weight: bold;
     color: #1a1a2e;
+
+    @include sm {
+      font-size: 2.2rem;
+    }
   }
 
   &__loading,
@@ -42,6 +54,11 @@
     font-size: 1.4rem;
     cursor: pointer;
     background-color: white;
+    max-width: 100%;
+
+    @include sm {
+      width: 100%;
+    }
 
     &:focus {
       outline: none;
@@ -55,17 +72,22 @@
   }
 
   // ===============================
-  // Table
+  // Table — compresses to fit, no horizontal scroll
   // ===============================
   &__table-wrapper {
     background-color: white;
     border-radius: 0.8rem;
     box-shadow: 0 0.2rem 0.8rem rgba(0, 0, 0, 0.08);
-    overflow-x: auto;
+    overflow-x: hidden;
+
+    @include sm {
+      padding: 0.8rem;
+    }
   }
 
   &__table {
     width: 100%;
+    table-layout: fixed;
     border-collapse: collapse;
 
     th {
@@ -75,6 +97,24 @@
       text-transform: uppercase;
       color: #666;
       border-bottom: 2px solid #f0f0f0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      @include md {
+        padding: 0.9rem 1rem;
+        font-size: 1.1rem;
+      }
+
+      @include sm {
+        padding: 0.7rem 0.6rem;
+        font-size: 0.95rem;
+      }
+
+      @include xs {
+        padding: 0.5rem 0.4rem;
+        font-size: 0.8rem;
+      }
     }
 
     td {
@@ -83,14 +123,46 @@
       color: #333;
       border-bottom: 1px solid #f0f0f0;
       vertical-align: middle;
+      overflow: hidden;
+
+      @include md {
+        padding: 0.9rem 1rem;
+        font-size: 1.2rem;
+      }
+
+      @include sm {
+        padding: 0.7rem 0.6rem;
+        font-size: 1.05rem;
+      }
+
+      @include xs {
+        padding: 0.5rem 0.4rem;
+        font-size: 0.9rem;
+      }
+    }
+
+    // ✅ reserve enough width for the Actions column (button + dropdown + button) on desktop/md
+    th:last-child,
+    td:last-child {
+      width: 26rem;
+
+      @include md {
+        width: 22rem;
+      }
+
+      @include sm {
+        width: auto; // ✅ once stacked vertically at sm, no need to reserve fixed width
+      }
     }
 
     tr:last-child td {
       border-bottom: none;
     }
 
-    tr:hover td {
-      background-color: #f9f9f9;
+    @media (hover: hover) {
+      tr:hover td {
+        background-color: #f9f9f9;
+      }
     }
   }
 
@@ -104,11 +176,19 @@
     display: flex;
     flex-direction: column;
     gap: 0.2rem;
+    overflow: hidden;
   }
 
   &__customer-email {
     font-size: 1.1rem;
     color: #999;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    @include sm {
+      font-size: 0.9rem;
+    }
   }
 
   // ===============================
@@ -120,6 +200,23 @@
     font-size: 1.2rem;
     font-weight: bold;
     text-transform: capitalize;
+    white-space: nowrap;
+    display: inline-block;
+
+    @include md {
+      padding: 0.3rem 0.8rem;
+      font-size: 1.05rem;
+    }
+
+    @include sm {
+      padding: 0.25rem 0.6rem;
+      font-size: 0.9rem;
+    }
+
+    @include xs {
+      padding: 0.2rem 0.5rem;
+      font-size: 0.78rem;
+    }
 
     &--pending {
       background-color: #fff3e0;
@@ -156,6 +253,23 @@
     font-size: 1.2rem;
     font-weight: bold;
     text-transform: capitalize;
+    white-space: nowrap;
+    display: inline-block;
+
+    @include md {
+      padding: 0.3rem 0.8rem;
+      font-size: 1.05rem;
+    }
+
+    @include sm {
+      padding: 0.25rem 0.6rem;
+      font-size: 0.9rem;
+    }
+
+    @include xs {
+      padding: 0.2rem 0.5rem;
+      font-size: 0.78rem;
+    }
 
     &--paid {
       background-color: #e8f5e9;
@@ -174,13 +288,19 @@
   }
 
   // ===============================
-  // Actions
+  // Actions — horizontal on desktop/md, stacks vertically only at sm and below
   // ===============================
   &__actions {
     display: flex;
     gap: 0.8rem;
     align-items: center;
     flex-wrap: nowrap;
+
+    @include sm {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.5rem;
+    }
   }
 
   &__view-btn,
@@ -191,14 +311,34 @@
     font-size: 1.2rem;
     cursor: pointer;
     white-space: nowrap;
+    transition: background-color 0.2s ease, transform 0.15s ease;
+
+    @include md {
+      padding: 0.5rem 0.9rem;
+      font-size: 1.05rem;
+    }
+
+    @include sm {
+      padding: 0.5rem 0.9rem;
+      font-size: 1rem;
+      width: 100%; // ✅ full width once stacked
+    }
+
+    &:active {
+      @include md {
+        transform: scale(0.95);
+      }
+    }
   }
 
   &__view-btn {
     background-color: #e3f2fd;
     color: #1976d2;
 
-    &:hover {
-      background-color: #bbdefb;
+    @media (hover: hover) {
+      &:hover {
+        background-color: #bbdefb;
+      }
     }
   }
 
@@ -206,11 +346,14 @@
     background-color: #ffebee;
     color: #d32f2f;
 
-    &:hover {
-      background-color: #ffcdd2;
+    @media (hover: hover) {
+      &:hover {
+        background-color: #ffcdd2;
+      }
     }
   }
 
+  // ✅ status dropdown — wider on desktop so option text is fully readable
   &__status-select {
     padding: 0.6rem 1rem;
     border: 1px solid #ddd;
@@ -218,6 +361,25 @@
     font-size: 1.2rem;
     cursor: pointer;
     background-color: white;
+    min-width: 13rem; // ✅ ensures enough room for "Processing" / "Delivered" without clipping
+
+    @include md {
+      padding: 0.5rem 0.8rem;
+      font-size: 1.05rem;
+      min-width: 11rem;
+    }
+
+    @include sm {
+      padding: 0.6rem 0.9rem;
+      font-size: 1rem;
+      width: 100%; // ✅ full width once stacked
+      min-width: 0;
+    }
+
+    @include xs {
+      padding: 0.5rem 0.7rem;
+      font-size: 0.95rem;
+    }
 
     &:focus {
       outline: none;
@@ -239,6 +401,10 @@
     justify-content: center;
     align-items: center;
     z-index: 1000;
+
+    @include xs {
+      align-items: flex-end;
+    }
   }
 
   &__modal {
@@ -249,6 +415,24 @@
     max-width: 90%;
     max-height: 90vh;
     overflow-y: auto;
+
+    @include md {
+      width: 60rem;
+      padding: 2.6rem;
+    }
+
+    @include sm {
+      width: 92%;
+      padding: 2.2rem;
+    }
+
+    @include xs {
+      max-width: 100%;
+      width: 100%;
+      border-radius: 0.8rem 0.8rem 0 0;
+      max-height: 88vh;
+      padding: 1.8rem 1.4rem;
+    }
   }
 
   &__modal-header {
@@ -257,10 +441,22 @@
     align-items: center;
     margin-bottom: 2rem;
 
+    @include sm {
+      margin-bottom: 1.6rem;
+    }
+
     h2 {
       font-size: 2rem;
       font-weight: bold;
       color: #1a1a2e;
+
+      @include sm {
+        font-size: 1.7rem;
+      }
+
+      @include xs {
+        font-size: 1.5rem;
+      }
     }
   }
 
@@ -271,9 +467,20 @@
     cursor: pointer;
     color: #666;
     line-height: 1;
+    transition: color 0.2s ease, transform 0.15s ease;
 
-    &:hover {
-      color: #333;
+    // ✅ only apply hover on devices that support real hover
+    @media (hover: hover) {
+      &:hover {
+        color: #333;
+      }
+    }
+
+    // ✅ tap feedback for touch devices instead of hover
+    &:active {
+      @include md {
+        transform: scale(0.85);
+      }
     }
   }
 
@@ -282,18 +489,31 @@
     padding-bottom: 2rem;
     border-bottom: 1px solid #f0f0f0;
 
+    @include sm {
+      margin-bottom: 1.6rem;
+      padding-bottom: 1.6rem;
+    }
+
     h3 {
       font-size: 1.4rem;
       font-weight: bold;
       color: #666;
       text-transform: uppercase;
       margin-bottom: 0.8rem;
+
+      @include xs {
+        font-size: 1.25rem;
+      }
     }
 
     p {
       font-size: 1.4rem;
       color: #333;
       margin-bottom: 0.4rem;
+
+      @include xs {
+        font-size: 1.3rem;
+      }
     }
   }
 
@@ -302,6 +522,7 @@
   // ===============================
   &__items-table {
     width: 100%;
+    table-layout: fixed;
     border-collapse: collapse;
     font-size: 1.3rem;
 
@@ -312,12 +533,38 @@
       border-bottom: 2px solid #f0f0f0;
       font-size: 1.1rem;
       text-transform: uppercase;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      @include sm {
+        padding: 0.6rem;
+        font-size: 1rem;
+      }
+
+      @include xs {
+        padding: 0.5rem 0.4rem;
+        font-size: 0.85rem;
+      }
     }
 
     td {
       padding: 0.8rem;
       border-bottom: 1px solid #f0f0f0;
       color: #333;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      @include sm {
+        padding: 0.6rem;
+        font-size: 1.2rem;
+      }
+
+      @include xs {
+        padding: 0.5rem 0.4rem;
+        font-size: 1.05rem;
+      }
     }
 
     tr:last-child td {
@@ -333,6 +580,11 @@
     background-color: #f9f9f9;
     padding: 1.6rem;
     border-radius: 0.4rem;
+
+    @include sm {
+      margin-top: 1.6rem;
+      padding: 1.2rem;
+    }
   }
 
   &__modal-summary-row {
@@ -342,6 +594,13 @@
     padding: 0.8rem 0;
     font-size: 1.4rem;
     border-bottom: 1px solid #f0f0f0;
+
+    @include xs {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.3rem;
+      font-size: 1.3rem;
+    }
 
     &:last-child {
       border-bottom: none;

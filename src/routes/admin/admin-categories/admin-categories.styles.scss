@@ -1,15 +1,27 @@
+@use '../../../styles/mixins' as *;
+
 .admin-categories {
   &__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 2.4rem;
+
+    @include sm {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.2rem;
+    }
   }
 
   &__title {
     font-size: 2.8rem;
     font-weight: bold;
     color: #1a1a2e;
+
+    @include sm {
+      font-size: 2.2rem;
+    }
   }
 
   &__add-btn {
@@ -20,9 +32,24 @@
     border-radius: 0.4rem;
     font-size: 1.4rem;
     cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.15s ease;
 
-    &:hover {
-      background-color: #4285f4;
+    @include sm {
+      width: 100%; // ✅ full width button on mobile, easier to tap
+    }
+
+    // ✅ only apply hover on devices that support real hover
+    @media (hover: hover) {
+      &:hover {
+        background-color: #4285f4;
+      }
+    }
+
+    // ✅ tap feedback for touch devices instead of hover
+    &:active {
+      @include md {
+        transform: scale(0.97);
+      }
     }
   }
 
@@ -54,6 +81,10 @@
     justify-content: center;
     align-items: center;
     z-index: 1000;
+
+    @include xs {
+      align-items: flex-end; // ✅ slide up from bottom like a sheet on small phones
+    }
   }
 
   &__form {
@@ -65,11 +96,35 @@
     max-height: 90vh; // ✅ prevent overflow on small screens
     overflow-y: auto; // ✅ scroll if content is too long
 
+    // ✅ added md step — gradual shrink for tablets/small laptops
+    @include md {
+      width: 45rem;
+      padding: 2.6rem;
+    }
+
+    @include sm {
+      padding: 2.2rem;
+      max-width: 95%;
+    }
+
+    @include xs {
+      max-width: 100%;
+      width: 100%;
+      border-radius: 0.8rem 0.8rem 0 0; // ✅ bottom-sheet style corners
+      max-height: 85vh;
+      padding: 2rem 1.6rem;
+    }
+
     h2 {
       font-size: 2rem;
       font-weight: bold;
       margin-bottom: 2rem;
       color: #1a1a2e;
+
+      @include sm {
+        font-size: 1.7rem;
+        margin-bottom: 1.6rem;
+      }
     }
   }
 
@@ -90,6 +145,7 @@
       border: 1px solid #ddd;
       border-radius: 0.4rem;
       font-size: 1.4rem;
+      min-width: 0; // ✅ prevent overflow inside flex/grid containers
 
       &:focus {
         outline: none;
@@ -132,6 +188,11 @@
       object-fit: cover;
       border-radius: 0.4rem;
       border: 1px solid #ddd;
+
+      @include xs {
+        width: 8rem;
+        height: 8rem;
+      }
     }
   }
 
@@ -144,6 +205,10 @@
   &__form-buttons {
     display: flex;
     gap: 1rem;
+
+    @include xs {
+      flex-direction: column; // ✅ stack save/cancel buttons on very small screens
+    }
   }
 
   &__save-btn {
@@ -155,9 +220,18 @@
     font-size: 1.4rem;
     cursor: pointer;
     flex: 1;
+    transition: background-color 0.2s ease, transform 0.15s ease;
 
-    &:hover {
-      background-color: #4285f4;
+    @media (hover: hover) {
+      &:hover {
+        background-color: #4285f4;
+      }
+    }
+
+    &:active {
+      @include md {
+        transform: scale(0.97);
+      }
     }
 
     &:disabled {
@@ -175,9 +249,18 @@
     font-size: 1.4rem;
     cursor: pointer;
     flex: 1;
+    transition: background-color 0.2s ease;
 
-    &:hover {
-      background-color: #e0e0e0;
+    @media (hover: hover) {
+      &:hover {
+        background-color: #e0e0e0;
+      }
+    }
+
+    &:active {
+      @include md {
+        background-color: #d8d8d8;
+      }
     }
   }
 
@@ -188,12 +271,21 @@
     background-color: white;
     border-radius: 0.8rem;
     box-shadow: 0 0.2rem 0.8rem rgba(0, 0, 0, 0.08);
-    overflow-x: auto;
+    overflow-x: auto; // ✅ table scrolls horizontally instead of breaking on small screens
   }
 
   &__table {
     width: 100%;
     border-collapse: collapse;
+
+    // ✅ wider min-width so columns have breathing room when scrolling on tablet/mobile
+    @include md {
+      min-width: 70rem;
+    }
+
+    @include sm {
+      min-width: 65rem;
+    }
 
     th {
       text-align: left;
@@ -202,6 +294,10 @@
       text-transform: uppercase;
       color: #666;
       border-bottom: 2px solid #f0f0f0;
+
+      @include sm {
+        padding: 1rem 1.2rem;
+      }
     }
 
     td {
@@ -210,14 +306,22 @@
       color: #333;
       border-bottom: 1px solid #f0f0f0;
       vertical-align: middle;
+
+      @include sm {
+        padding: 1rem 1.2rem;
+        font-size: 1.3rem;
+      }
     }
 
     tr:last-child td {
       border-bottom: none;
     }
 
-    tr:hover td {
-      background-color: #f9f9f9;
+    // ✅ only apply hover row highlight on devices that support real hover
+    @media (hover: hover) {
+      tr:hover td {
+        background-color: #f9f9f9;
+      }
     }
   }
 
@@ -238,6 +342,7 @@
     border-radius: 2rem;
     font-size: 1.2rem;
     font-weight: bold;
+    white-space: nowrap; // ✅ prevent "Active"/"Inactive" from wrapping awkwardly
 
     &--active {
       background-color: #e8f5e9;
@@ -264,14 +369,24 @@
     border-radius: 0.4rem;
     font-size: 1.2rem;
     cursor: pointer;
+    white-space: nowrap; // ✅ prevent button text wrapping inside table cells
+    transition: background-color 0.2s ease, transform 0.15s ease;
+
+    &:active {
+      @include md {
+        transform: scale(0.95);
+      }
+    }
   }
 
   &__edit-btn {
     background-color: #e3f2fd;
     color: #1976d2;
 
-    &:hover {
-      background-color: #bbdefb;
+    @media (hover: hover) {
+      &:hover {
+        background-color: #bbdefb;
+      }
     }
   }
 
@@ -280,8 +395,10 @@
       background-color: #fff3e0;
       color: #f57c00;
 
-      &:hover {
-        background-color: #ffe0b2;
+      @media (hover: hover) {
+        &:hover {
+          background-color: #ffe0b2;
+        }
       }
     }
 
@@ -289,8 +406,10 @@
       background-color: #e8f5e9;
       color: #388e3c;
 
-      &:hover {
-        background-color: #c8e6c9;
+      @media (hover: hover) {
+        &:hover {
+          background-color: #c8e6c9;
+        }
       }
     }
   }
@@ -299,8 +418,10 @@
     background-color: #ffebee;
     color: #d32f2f;
 
-    &:hover {
-      background-color: #ffcdd2;
+    @media (hover: hover) {
+      &:hover {
+        background-color: #ffcdd2;
+      }
     }
   }
 }
